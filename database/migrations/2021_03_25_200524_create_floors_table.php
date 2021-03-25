@@ -18,8 +18,8 @@ class CreateFloorsTable extends Migration
             $table->string('floor_name');
             $table->unsignedBigInteger('floor_manager')->nullable();
             $table->unsignedBigInteger('created_by');
-            $table->foreign('floor_manager')->references('id')->on('workers');
-            $table->foreign('created_by')->references('id')->on('workers');
+            $table->foreign('floor_manager')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
         });
     }

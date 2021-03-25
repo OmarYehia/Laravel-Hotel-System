@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCreatedByColumnAsFKOnWorkersTable extends Migration
+class AddCreatedByColumnAsFKOnUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddCreatedByColumnAsFKOnWorkersTable extends Migration
      */
     public function up()
     {
-        Schema::table('workers', function (Blueprint $table) {
-            $table->foreign('created_by')->references('id')->on('workers');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 }

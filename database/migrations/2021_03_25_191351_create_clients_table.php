@@ -24,7 +24,7 @@ class CreateClientsTable extends Migration
             $table->string('avatar_image');
             $table->unsignedBigInteger('approved_by');
             $table->enum('approval_status', ['approved', 'pending', 'denied']);
-            $table->foreign('approved_by')->references('id')->on('workers');
+            $table->foreign('approved_by')->references('id')->on('users');
             $table->date('last_login_date');
             $table->rememberToken();
             $table->timestamps();

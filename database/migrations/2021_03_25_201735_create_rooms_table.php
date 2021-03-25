@@ -22,7 +22,7 @@ class CreateRoomsTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->boolean('is_reserved')->default(false);
             $table->foreign('floor_id')->references('id')->on('floors');
-            $table->foreign('created_by')->references('id')->on('workers');
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
         });
     }
