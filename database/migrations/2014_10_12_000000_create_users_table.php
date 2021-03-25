@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('national_id')->unique();
-            $table->string('avatar_image');
+            $table->string('national_id')->unique()->nullable();
+            $table->string('avatar_image')->nullable();
             $table->boolean('isBanned')->default(false);
             $table->unsignedBigInteger('created_by');
             $table->rememberToken();

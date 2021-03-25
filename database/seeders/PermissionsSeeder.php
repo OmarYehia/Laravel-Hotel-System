@@ -49,8 +49,6 @@ class PermissionsSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'admin@admin.com',
             'password' => '123456',
-            'national_id' => '0000000000',
-            'avatar_image' => '/',
             'created_by' => 1,
         ]);
         $user->assignRole($adminRole);
