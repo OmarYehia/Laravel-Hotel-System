@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateClientsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('clients', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('country');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('phone_number');
+            $table->string('avatar_image');
+            $table->unsignedBigInteger('approved_by');
+            $table->enum('approval_status', ['approved', 'pending', 'denied']);
+            $table->foreign('approved_by')->references('id')->on('workers');
+            $table->date('last_login_date');
+            $table->rememberToken();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+}
