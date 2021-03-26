@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FloorController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -24,6 +25,9 @@ Route::get("/", [UserController::class, 'index']);
 Route::get("/users/{userid}", [UserController::class, 'show']);
 Route::get("/users/delete/{userid}", [UserController::class, 'destroy']);
 Route::post("/users", [UserController::class, 'store']);
+
+// Floors
+Route::post("/floors", [FloorController::class, 'store']);
 
 // Rooms
 Route::post("/rooms", [RoomController::class, 'store']);

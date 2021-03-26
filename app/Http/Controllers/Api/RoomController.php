@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Resources\RoomResource;
 use App\Models\Room;
@@ -15,7 +14,6 @@ class RoomController extends Controller
     public function store(StoreRoomRequest $request)
     {
         try {
-            
             $room = Room::create([
                 'room_number' => $request->room_number,
                 'room_price' => $request->room_price,
@@ -28,12 +26,11 @@ class RoomController extends Controller
         } catch (Exception $e) {
             return false;
         }
-       
     }
 
     public function index()
     {
-        $allRooms = Room::with(['user', 'floor'])->get();
+        $allRooms = Room::with(['manager', 'floor'])->get();
         return RoomResource::collection($allRooms);
     }
 
