@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\RoomController;
+use App\Http\Requests\StoreRoomRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post("/rooms", [RoomController::class, 'store']);
-// Route::post("/rooms", function (Request $request) {
-//     dd($request);
-// });
+ /*Route::post("/rooms", function (StoreRoomRequest $request) {
+     dd($request);
+ });*/

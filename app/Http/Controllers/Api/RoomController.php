@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Models\Room;
 use Validator;
@@ -12,6 +13,7 @@ class RoomController extends Controller
 {
     public function store(StoreRoomRequest $request)
     {
+       // dd($request);
 
         // $validator = Validator::make($request->all(), [
         //     'room_number' => 'required|min:4|integer',
@@ -25,16 +27,22 @@ class RoomController extends Controller
         //     dd($validator);
         // }
         try {
+            
             $room = Room::create([
                 'room_number' => $request->room_number,
                 'room_price' => $request->room_price,
                 'room_capacity' => $request->room_capacity,
                 'floor_id' => $request->floor_id,
                 'created_by' => $request->created_by,
+
             ]);
+            
+            
+            
         } catch (Exception $e) {
             dd($e);
             return false;
         }
+       
     }
 }

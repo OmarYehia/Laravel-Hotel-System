@@ -21,11 +21,11 @@ class CreateClientsTable extends Migration
             $table->string('country');
             $table->enum('gender', ['male', 'female']);
             $table->string('phone_number');
-            $table->string('avatar_image');
-            $table->unsignedBigInteger('approved_by');
-            $table->enum('approval_status', ['approved', 'pending', 'denied']);
+            $table->string('avatar_image')->nullable();
+            $table->unsignedBigInteger('approved_by')->nullable();
+            $table->enum('approval_status', ['approved', 'pending', 'denied'])->default('pending');
             $table->foreign('approved_by')->references('id')->on('users');
-            $table->date('last_login_date');
+            $table->date('last_login_date')->nullable();;
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
