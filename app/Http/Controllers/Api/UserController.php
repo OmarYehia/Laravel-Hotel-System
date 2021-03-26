@@ -9,7 +9,7 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function index()
-    {
+    {//
         $res = User::all();
         dd($res);
     }
