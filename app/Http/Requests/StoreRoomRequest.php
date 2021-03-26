@@ -24,20 +24,19 @@ class StoreRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_number' => ['required', 'min:4', 'integer'],
-            'room_price' => ['required', 'integer'],
-            'room_capacity' => ['required', 'integer'],
-            'floor_id' => ['required', 'exists:floors,id'],
-            'created_by' => ['required', 'exists:users,id'],
+            'room_number' => 'required|digits:4|integer',
+            'room_price' => 'required|integer',
+            'room_capacity' => 'required|integer',
+            'floor_id' => 'required|exists:floors,id',
+            'created_by' => 'required|exists:users,id',
         ];
-       
     }
 
     public function messages()
     {
         return [
             'room_number.required' => 'Room number is required',
-            'room_number.min' => 'Room number must be more than 4 digits',
+            'room_number.digits' => 'Room number must be more than 4 digits',
             'room_number.integer' => 'Room number must be an integer',
             'room_price.required' => 'Room price is required',
             'room_price.integer' => 'Room price must be an integer',
