@@ -14,7 +14,7 @@ class AddCreatedByColumnAsFKOnUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 }

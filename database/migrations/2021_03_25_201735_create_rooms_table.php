@@ -18,11 +18,11 @@ class CreateRoomsTable extends Migration
             $table->integer('room_number')->unique();
             $table->integer('room_price');
             $table->integer('room_capacity');
-            $table->unsignedBigInteger('floor_id');
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('floor_id')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->boolean('is_reserved')->default(false);
-            $table->foreign('floor_id')->references('id')->on('floors');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('floor_id')->references('id')->on('floors')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

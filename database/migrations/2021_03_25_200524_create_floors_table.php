@@ -17,9 +17,9 @@ class CreateFloorsTable extends Migration
             $table->id()->from(1000); // This auto_incremenets starting from 1000 (4 digits constraint)
             $table->string('floor_name');
             $table->unsignedBigInteger('floor_manager')->nullable();
-            $table->unsignedBigInteger('created_by');
-            $table->foreign('floor_manager')->references('id')->on('users');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('floor_manager')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

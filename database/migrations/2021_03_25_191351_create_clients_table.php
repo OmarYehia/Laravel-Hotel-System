@@ -24,8 +24,8 @@ class CreateClientsTable extends Migration
             $table->string('avatar_image')->nullable();
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->enum('approval_status', ['approved', 'pending', 'denied'])->default('pending');
-            $table->foreign('approved_by')->references('id')->on('users');
-            $table->date('last_login_date')->nullable();;
+            $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
+            $table->date('last_login_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -28,6 +28,10 @@ Route::post("/users", [UserController::class, 'store']);
 
 // Floors
 Route::post("/floors", [FloorController::class, 'store']);
+Route::get("floors", [FloorController::class, 'index']);
+Route::get('/floors/{floor}', [FloorController::class, 'show']);
+Route::put('floors/{floor}', [FloorController::class, 'update']);
+Route::delete('floors/{floor}', [FloorController::class, 'destroy']);
 
 // Rooms
 Route::post("/rooms", [RoomController::class, 'store']);

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('national_id')->unique()->nullable();
             $table->string('avatar_image')->nullable();
             $table->boolean('isBanned')->default(false);
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
