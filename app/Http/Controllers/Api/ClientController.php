@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClientRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $res = Client::all();
+        $res = Client::get();
         dd($res);
     }
 
