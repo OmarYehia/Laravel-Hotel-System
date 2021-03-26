@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FloorResource extends JsonResource
@@ -16,8 +17,8 @@ class FloorResource extends JsonResource
     {
         return [
             'floor_name' => $this->floor_name,
-            'floor_manager' => $this->floor_manager,
-            'created_by' => $this->created_by,
+            'floor_manager' => new App\Http\Resources\UserResource(User::find($this->floor_manager)),
+            'created_by' => new App\Http\Resources\UserResource(User::find($this->created_by)),
         ];
     }
 }
