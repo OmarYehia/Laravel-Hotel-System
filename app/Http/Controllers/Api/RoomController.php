@@ -22,7 +22,7 @@ class RoomController extends Controller
                 'created_by' => $request->created_by,
 
             ]);
-            return [$room];
+            return new RoomResource($room);
         } catch (Exception $e) {
             return false;
         }
