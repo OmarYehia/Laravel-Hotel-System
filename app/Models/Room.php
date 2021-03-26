@@ -20,6 +20,11 @@ class Room extends Model
 
     public function manager()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(\App\Models\User::class, 'created_by'); // created_by was provided as second argument because Eloquent auto assumes foreign key name to be _id
+    }
+
+    public function floor()
+    {
+        return $this->belongsTo(\App\Models\Floor::class);
     }
 }
