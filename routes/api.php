@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\FloorController;
+use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -39,3 +40,10 @@ Route::get("rooms", [RoomController::class, 'index']);
 Route::get('/rooms/{room}', [RoomController::class, 'show']);
 Route::put('rooms/{room}', [RoomController::class, 'update']);
 Route::delete('rooms/{room}', [RoomController::class, 'destroy']);
+
+// Reservations
+Route::post("/reservations", [ReservationController::class, 'store']);
+Route::get("reservations", [ReservationController::class, 'index']);
+Route::get('/reservations/{reservation}', [ReservationController::class, 'show']);
+Route::put('reservations/{reservation}', [ReservationController::class, 'update']);
+Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy']);
