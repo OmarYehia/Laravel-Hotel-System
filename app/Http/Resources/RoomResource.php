@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Floor;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoomResource extends JsonResource
@@ -19,7 +20,7 @@ class RoomResource extends JsonResource
             'room_price' => $this->room_price,
             'room_capacity' => $this->room_capacity,
             'is_reserved' => $this->is_reserved,
-            'floor_id' => $this->floor_id,
+            'floor' => new App\Http\Resources\FloorResource(Floor::find($this->floor_id)),
             'created_by' => $this->created_by,
         ];
     }
