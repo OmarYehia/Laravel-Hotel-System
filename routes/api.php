@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\FloorController;
 use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\RoomController;
@@ -22,10 +23,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/", [UserController::class, 'index']);
-Route::get("/users/{userid}", [UserController::class, 'show']);
-Route::get("/users/delete/{userid}", [UserController::class, 'destroy']);
+//users
 Route::post("/users", [UserController::class, 'store']);
+Route::get("/users", [UserController::class, 'index']);
+Route::get("/users/{userid}", [UserController::class, 'show']);
+Route::put("/users/{userid}", [UserController::class, 'update']);
+Route::delete("/users/delete/{userid}", [UserController::class, 'destroy']);
 
 // Floors
 Route::post("/floors", [FloorController::class, 'store']);
@@ -47,3 +50,10 @@ Route::get("reservations", [ReservationController::class, 'index']);
 Route::get('/reservations/{reservation}', [ReservationController::class, 'show']);
 Route::put('reservations/{reservation}', [ReservationController::class, 'update']);
 Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy']);
+
+//Clients
+Route::post("/clients", [ClientController::class, 'store']);
+Route::get("clients", [ClientController::class, 'index']);
+Route::get('/clients/{client}', [ClientController::class, 'show']);
+Route::put('clients/{client}', [ClientController::class, 'update']);
+Route::delete('clients/{client}', [ClientController::class, 'destroy']);
