@@ -24,11 +24,11 @@ class StoreRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_number' =>'required|min:4|integer',
-            'room_price' => 'required|integer',
-            'room_capacity' => 'required|integer',
-            'floor_id' => 'required|exists:floors,id',
-            'created_by' => 'required|exists:users,id',
+            'room_number' => ['required', 'min:4', 'integer'],
+            'room_price' => ['required', 'integer'],
+            'room_capacity' => ['required', 'integer'],
+            'floor_id' => ['required', 'exists:floors,id'],
+            'created_by' => ['required', 'exists:users,id'],
         ];
        
     }

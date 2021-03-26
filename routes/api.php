@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\RoomController;
-use App\Http\Requests\StoreRoomRequest;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +20,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get("/", [UserController::class, 'index']);
+Route::get("/users/{userid}", [UserController::class, 'show']);
+Route::get("/users/delete/{userid}", [UserController::class, 'destroy']);
+Route::post("/users", [UserController::class, 'store']);
+
+// Rooms
 Route::post("/rooms", [RoomController::class, 'store']);
- /*Route::post("/rooms", function (StoreRoomRequest $request) {
-     dd($request);
- });*/
+Route::get("rooms", [RoomController::class, 'index']);
+Route::get('/rooms/{room}', [RoomController::class, 'show']);
+Route::put('rooms/{room}', [RoomController::class, 'update']);
+Route::delete('rooms/{room}', [RoomController::class, 'destroy']);

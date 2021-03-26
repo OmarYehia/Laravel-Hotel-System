@@ -6,26 +6,14 @@ use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
+use App\Http\Resources\RoomResource;
 use App\Models\Room;
-use Validator;
+use Illuminate\Http\Response;
 
 class RoomController extends Controller
 {
     public function store(StoreRoomRequest $request)
     {
-       // dd($request);
-
-        // $validator = Validator::make($request->all(), [
-        //     'room_number' => 'required|min:4|integer',
-        //     'room_price' => 'required|integer',
-        //     'room_capacity' => 'required|integer',
-        //     'floor_id' => 'required|exists:floors,id',
-        //     'created_by' => 'required|exists:users,id',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     dd($validator);
-        // }
         try {
             
             $room = Room::create([
@@ -36,13 +24,33 @@ class RoomController extends Controller
                 'created_by' => $request->created_by,
 
             ]);
-            
-            
-            
+            return [$room];
         } catch (Exception $e) {
-            dd($e);
             return false;
         }
        
+    }
+
+    public function index()
+    {
+        $allRooms = Room::with(['user', 'floor'])->get();
+        return RoomResource::collection($allRooms);
+    }
+
+    public function show(Room $room)
+    {
+        return new RoomResource($room);
+    }
+
+    public function destroy(Room $room)
+    {
+        $room->delete();
+        return response()->json(['message' => 'Deleted successfully!']);
+    }
+
+    public function update(StoreRoomRequest $request, Room $room)
+    {
+        $room->update($request->all());
+        return response()->json(['message' => 'Updated successfully!']);
     }
 }
