@@ -38,6 +38,16 @@ class CreateAdmin extends Command
      */
     public function handle()
     {
+        if (!$this->option('name')) {
+            $this->error('You must specify a --name option');
+            return 0;
+        }
+
+        if (!$this->option('password')) {
+            $this->error('You must specify a --password option');
+            return 0;
+        }
+
         try {
             $user = User::factory()->create([
                 'name' => 'Super Admin',
