@@ -3,29 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Models\User;
+use App\Http\Requests\StoreClientRequest;
+use App\Models\Client;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ClientController extends Controller
 {
     public function index()
-    {//
-        $res = User::all();
+    {
+        $res = Client::all();
         dd($res);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreClientRequest $request)
     {
-        User::create($request->all());
+        $res = Client::create($request->all());
+        dd($res);
     }
 
-    public function show($userid)
+    public function show(Client $client)
     {
-        $user = User::find($userid);
-        if ($user) {
-            dd($user);
+        if ($client) {
+            dd($client);
         } else {
-            dd("User not found");
+            dd("Client not found");
         }
     }
 
