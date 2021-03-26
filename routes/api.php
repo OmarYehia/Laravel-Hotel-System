@@ -25,7 +25,9 @@ Route::get("/users/{userid}", [UserController::class, 'show']);
 Route::get("/users/delete/{userid}", [UserController::class, 'destroy']);
 Route::post("/users", [UserController::class, 'store']);
 
+// Rooms
 Route::post("/rooms", [RoomController::class, 'store']);
-// Route::post("/rooms", function (Request $request) {
-//     dd($request);
-// });
+Route::get("rooms", [RoomController::class, 'index']);
+Route::get('/rooms/{room}', [RoomController::class, 'show']);
+Route::put('rooms/{room}', [RoomController::class, 'update']);
+Route::delete('rooms/{room}', [RoomController::class, 'destroy']);
