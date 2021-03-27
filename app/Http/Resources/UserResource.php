@@ -20,7 +20,6 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'national_id' => $this->national_id,
-            'is_banned' => $this->isBanned,
             'created_by' => [
                 'name' => $createdBy->name,
                 'email' => $createdBy->email,
