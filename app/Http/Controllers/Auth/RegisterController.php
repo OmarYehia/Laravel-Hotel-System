@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Storage;
 class RegisterController extends Controller
 {
     use UploadTrait;
+
+    public function __construct()
+    {
+       // $this->middleware(['guest:client']);
+    }
     public function index()
     {
          // Get all countries 
@@ -69,7 +74,7 @@ class RegisterController extends Controller
         $client->save();
         
         //sign the client in
-        Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'));
+        Auth::guard('client')->attempt($request->only('email', 'password'));
        
 }
 }
