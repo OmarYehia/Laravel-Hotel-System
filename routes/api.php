@@ -5,7 +5,10 @@ use App\Http\Controllers\Api\FloorController;
 use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\User;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //users
     Route::post("/users", [UserController::class, 'store']);
     Route::get("/users", [UserController::class, 'index']);
+    Route::get("/users/restore/all", [UserController::class, 'retrieve']);
+    Route::get("/users/approve/{client}", [UserController::class, 'approve']);
     Route::get("/users/{userid}", [UserController::class, 'show']);
     Route::put("/users/{userid}", [UserController::class, 'update']);
     Route::delete("/users/{userid}", [UserController::class, 'destroy']);
@@ -59,7 +64,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
 });
+Route::post('/sanctum/token', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
 
+    $user = User::where('email', $request->email)->first();
+    
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});
 
 // //users
 // Route::post("/users", [UserController::class, 'store']);

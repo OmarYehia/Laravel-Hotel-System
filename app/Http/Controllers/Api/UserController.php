@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Client;
 use App\Models\User;
 use Resources;
 
@@ -37,25 +38,26 @@ class UserController extends Controller
 
     public function destroy(User $userid)
     {
-        /*
-
-        Foriegn key ruins the delete, suggest adding on delete cascade;
-
-        $userid->isBanned = 1;
         $userid->delete();
-        $userid->save();
-        */
+        return response()->json(['message' => 'Deleted successfully!']);
     }
 
     public function retrieve()
-    {/*
-
-        $blogs=User::onlyTrashed()->get();
-        foreach ($blogs as $blog) {
-            User::withTrashed()->find($blog->id)->restore();
+    {
+        $users=User::onlyTrashed()->get();
+        foreach ($users as $user) {
+            User::withTrashed()->find($user->id)->restore();
         }
-        return redirect()->route('blogs.index');
+        return response()->json(['message' => 'Restored successfully!']);
+    }
 
-    */
+    public function approve($client)
+    {
+        if (Client::where('approval_status', 'pending')->where('id', $client)->exists()) {
+            $affected = Client::where('approval_status', 'pending')->where('id', $client)->update(['approval_status' => 'approved']);
+            return response()->json(['message' => 'Client propsal approved!']);
+        } else {
+            return response()->json(['message' => 'Client doesnt exist!']);
+        }
     }
 }
