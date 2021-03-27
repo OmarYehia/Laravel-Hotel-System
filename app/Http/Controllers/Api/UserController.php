@@ -4,48 +4,47 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Resources;
 
 class UserController extends Controller
 {
     public function index()
-    {//
-        $res = User::all();
-        dd($res);
+    {
+        $res = User::get();
+        return UserResource::collection($res);
     }
 
     public function store(StoreUserRequest $request)
     {
-        User::create($request->all());
+        $res = User::create($request->all());
+        return new UserResource($res);
     }
 
-    public function show($userid)
+    public function show(User $userid)
     {
-        $user = User::find($userid);
-        if ($user) {
-            dd($user);
-        } else {
-            dd("User not found");
-        }
+        $user = $userid;
+        return new UserResource($user);
     }
 
-    public function update($userid)
+    public function update(StoreUserRequest $request, User $userid)
     {
+        $userid->update($request->all());
+        return response()->json(['message' => 'Updated successfully!']);
         //Same as destroy method
     }
 
-    public function destroy($userid)
+    public function destroy(User $userid)
     {
         /*
 
         Foriegn key ruins the delete, suggest adding on delete cascade;
 
-        $record = User::find($userid);
-        $record->isBanned = 1;
-        $record->delete();
-        $record->save();
-        $record = User::find($userid);
-        dd($record);*/
+        $userid->isBanned = 1;
+        $userid->delete();
+        $userid->save();
+        */
     }
 
     public function retrieve()
@@ -56,7 +55,7 @@ class UserController extends Controller
             User::withTrashed()->find($blog->id)->restore();
         }
         return redirect()->route('blogs.index');
-        
+
     */
     }
 }
