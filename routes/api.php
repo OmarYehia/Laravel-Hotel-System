@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
 });
+/*
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
@@ -76,7 +77,7 @@ Route::post('/sanctum/token', function (Request $request) {
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
-
+*/
 // //users
 // Route::post("/users", [UserController::class, 'store']);
 // Route::get("/users", [UserController::class, 'index']);
