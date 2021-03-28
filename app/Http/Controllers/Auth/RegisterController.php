@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreClientRequest;
 
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
@@ -33,20 +34,9 @@ class RegisterController extends Controller
             'countries' =>  $countries
         ]);
     }
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
         
-        //validation
-       $this->validate($request, [
-           'name' => 'required|max:255',
-           'email' => 'required|email|max:255|unique:clients',
-           'phone_number' => 'required',
-           'counrty' => 'requird',
-           'gender' => 'required',
-           'password' => 'required|confirmed',
-           'avatar_image' =>  'image|mimes:jpeg,jpg|max:2048'
-       ]);
-
         //store client
         $client = new Client;
         $client->name = $request->name;
