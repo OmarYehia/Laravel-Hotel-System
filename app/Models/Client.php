@@ -23,6 +23,7 @@ class Client extends Authenticatable
         'gender',
         'phone_number',
         'avatar_image',
+        'last_login_date'
     ];
      
     protected $hidden = [

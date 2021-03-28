@@ -14,7 +14,7 @@ use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-
+use Carbon\Carbon;
 
 
 class RegisterController extends Controller
@@ -55,6 +55,7 @@ class RegisterController extends Controller
         $client->country = $request->country;
         $client->gender = $request->gender;
         $client->password = Hash::make($request->password);
+        $client->last_login_date = Carbon::now()->toDateTimeString();
 
         if ($request->has('avatar_image')) {
             // Get image file
