@@ -23,6 +23,18 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+      @if(!Auth::guard('client')->check())
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="{{route ('login')}}" role="button">
+          Login
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="{{route ('register')}}" role="button">
+          Register
+        </a>
+      </li>
+      @endif
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -44,12 +56,16 @@
           <img src="{{Auth::guard('client')->user()->avatar_image}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-      
-        <a href="#" class="d-block">{{Auth::guard('client')->user()->name}}</a>
-      @endif
-         
+        <a href="#" class="d-block">{{Auth::guard('client')->user()->name}}</a>   
+    
+        </div>
+        <div class="info">
+        <a href="{{route ('logout') }}" class="d-block">Logout</a>   
+    
         </div>
       </div>
+      @endif
+         
       
 
       <!-- Sidebar Menu -->
