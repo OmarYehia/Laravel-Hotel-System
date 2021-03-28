@@ -22,10 +22,7 @@ class RegisterController extends Controller
 {
     use UploadTrait;
 
-    public function __construct()
-    {
-        $this->middleware(['guest:client'])->except('logout');;
-    }
+   
     public function index()
     {
          // Get all countries 
