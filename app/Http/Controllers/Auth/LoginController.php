@@ -13,8 +13,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-       // Auth::guard('client')->guest();
-      // $this->middleware('auth:client')->except('logout');
+      //  $this->middleware('guest:client')->except('logout');
     }
 
     
@@ -27,6 +26,7 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
+       
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
@@ -41,8 +41,9 @@ class LoginController extends Controller
        $client->update([
        'last_login_date' => Carbon::now()->toDateTimeString()
        ]);
-      // dd(Auth::guard('client')->getLastAttempted()) ;
-       dd("logged in successfully");
+     Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'));
+     return redirect()->route('index');
+
        
     }
   

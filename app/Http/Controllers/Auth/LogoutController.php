@@ -10,6 +10,6 @@ class LogoutController extends Controller
 {
     public function logout(Request $request)
     {
-        dd(Auth::guard('client')->check());
+       //Auth::guard('client')->check());
     }
 }
