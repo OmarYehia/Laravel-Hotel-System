@@ -76,6 +76,6 @@ class RegisterController extends Controller
         
         //sign the client in
         Auth::guard('client')->attempt($request->only('email', 'password'));
-       
+        return redirect()->route('index');
 }
 }
