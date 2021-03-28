@@ -44,7 +44,7 @@ class RegisterController extends Controller
            'counrty' => 'requird',
            'gender' => 'required',
            'password' => 'required|confirmed',
-           'avatar_image' =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
+           'avatar_image' =>  'image|mimes:jpeg,jpg|max:2048'
        ]);
 
         //store client
