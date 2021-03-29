@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Models\Client;
-use Illuminate\Support\Facades\Hash;
-
-use Illuminate\Support\Facades\Auth;
 
 use App\Traits\UploadTrait;
-use Illuminate\Support\Str;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
+use Illuminate\Http\Request;
+
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -23,29 +22,31 @@ class RegisterController extends Controller
 
     public function __construct()
     {
-       // $this->middleware(['guest:client']);
+        // $this->middleware(['guest:client']);
     }
+
     public function index()
     {
-         // Get all countries 
-        $countries = countries(); 
-        return view('auth.register',[
-            'countries' =>  $countries
+        // Get all countries
+        $countries = countries();
+        return view('auth.register', [
+            'countries' =>  $countries,
         ]);
     }
+
     public function store(Request $request)
     {
         
         //validation
-       $this->validate($request, [
-           'name' => 'required|max:255',
-           'email' => 'required|email|max:255|unique:clients',
-           'phone_number' => 'required',
-           'counrty' => 'requird',
-           'gender' => 'required',
-           'password' => 'required|confirmed',
-           'avatar_image' =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
-       ]);
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:clients',
+            'phone_number' => 'required',
+            'counrty' => 'requird',
+            'gender' => 'required',
+            'password' => 'required|confirmed',
+            'avatar_image' =>  'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
         //store client
         $client = new Client;
@@ -76,6 +77,6 @@ class RegisterController extends Controller
         
         //sign the client in
         Auth::guard('client')->attempt($request->only('email', 'password'));
-        return redirect()->route('index');
-}
+        return redirect()->route('client-views.reservations');
+    }
 }
