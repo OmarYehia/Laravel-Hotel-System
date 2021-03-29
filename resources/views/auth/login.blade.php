@@ -17,22 +17,27 @@
     <div class="card p-4">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
-
-            <form action="{{ route ('login') }}" method="post">
-                @csrf
-                @error('email')
-                <div class="text-danger">
-                    {{$message}}
-                </div>
-                @enderror
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control @error('email') border-danger @enderror "
-                        value="{{old('email')}}" placeholder="Email" name="email">
-                    <div class="input-group-append">
-                        <div class="input-group-text @error('email') border-danger @enderror">
-                            <span class="fas fa-envelope"></span>
+            @isset($url)
+            <form action='{{ url("login/$url") }}' method="POST">
+                @else
+                <form method="POST" action="{{ route('login') }}">
+                    @endisset
+                    @csrf
+                    @error('email')
+                    <div class="text-danger">
+                        {{$message}}
+                    </div>
+                    @enderror
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control @error('email') border-danger @enderror "
+                            value="{{old('email')}}" placeholder="Email" name="email">
+                        <div class="input-group-append">
+                            <div class="input-group-text @error('email') border-danger @enderror">
+                                <span class="fas fa-envelope"></span>
+                            </div>
                         </div>
                     </div>
+<<<<<<< Updated upstream
                 </div>
                 @error('password')
                 <div class="text-danger">
@@ -45,9 +50,22 @@
                     <div class="input-group-append">
                         <div class="input-group-text @error('password') border-danger @enderror">
                             <span class="fas fa-lock"></span>
+=======
+                    @error('password')
+                    <div class="text-danger">
+                        {{$message}}
+                    </div>
+                    @enderror
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control @error('password') border-danger @enderror "
+                            placeholder="Password" name="password">
+                        <div class="input-group-append">
+                            <div class="input-group-text @error('email') border-danger @enderror">
+                                <span class="fas fa-lock"></span>
+                            </div>
+>>>>>>> Stashed changes
                         </div>
                     </div>
-                </div>
         </div>
         <div class="row">
             <div class="col-8">

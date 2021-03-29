@@ -21,13 +21,16 @@ use App\Http\Controllers\floorController;
 
 Route::get('/', function () {
     return view('index');
-})->name('index')->middleware(['auth:client']);
+})->name('index');
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store'])->name('register');
 
-Route::get('/login', [LoginController::class,'index'])->name('login');
-Route::post('/login', [LoginController::class,'store'])->name('login');
+Route::get('/login/client', [LoginController::class,'showClientLoginForm'])->name('login');
+Route::post('/login/client', [LoginController::class,'clientLogin'])->name('login');
+
+Route::get('/login/admin', [LoginController::class,'showAdminLoginForm']);
+Route::post('/login/admin', [LoginController::class,'adminLogin']);
 
 Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
