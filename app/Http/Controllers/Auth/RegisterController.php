@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreClientRequest;
 use App\Models\Client;
-
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,12 +17,7 @@ use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
     use UploadTrait;
-
-    public function __construct()
-    {
-        // $this->middleware(['guest:client']);
-    }
-
+   
     public function index()
     {
         // Get all countries
@@ -34,20 +27,9 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
         
-        //validation
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:clients',
-            'phone_number' => 'required',
-            'counrty' => 'requird',
-            'gender' => 'required',
-            'password' => 'required|confirmed',
-            'avatar_image' =>  'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
         //store client
         $client = new Client;
         $client->name = $request->name;

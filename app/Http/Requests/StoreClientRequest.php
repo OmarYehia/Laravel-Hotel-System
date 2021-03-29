@@ -30,6 +30,7 @@ class StoreClientRequest extends FormRequest
             'counrty' => 'requird',
             'gender' => 'required',
             'password' => 'required|confirmed|min:6',
+            'avatar_image' =>  'image|mimes:jpeg,jpg|max:2048'
         ];
     }
 

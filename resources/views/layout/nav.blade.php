@@ -46,13 +46,15 @@
                     alt="User Image">
             </div>
             <div class="info">
-
                 <a href="#" class="d-block">{{Auth::guard('client')->user()->name}}</a>
-                @endif
+
+            </div>
+            <div class="info">
+                <a href="{{route ('logout') }}" class="d-block">Logout</a>
 
             </div>
         </div>
-
+        @endif
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
