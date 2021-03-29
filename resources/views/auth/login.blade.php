@@ -43,7 +43,7 @@
                     <input type="password" class="form-control @error('password') border-danger @enderror "
                         placeholder="Password" name="password">
                     <div class="input-group-append">
-                        <div class="input-group-text @error('email') border-danger @enderror">
+                        <div class="input-group-text @error('password') border-danger @enderror">
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
         <!-- /.social-auth-links -->
 
         <p class="mb-1">
-            <a href="/">I forgot my password</a>
+            <a href="{{route ('forget-password') }}">I forgot my password</a>
         </p>
         <p class="mb-0">
             <a href="{{ route ('register') }}" class="text-center">Register a new membership</a>
