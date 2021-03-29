@@ -3,8 +3,9 @@
 use App\Http\Controllers\Auth\LoginController;
 use  App\Http\Controllers\Auth\LogoutController;
 use  App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\reservationController;
 use  Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\floorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,8 @@ Route::post('/login', [LoginController::class,'store'])->name('login');
 
 Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
-Route::get('/home', function () {
-    return view('client-views.reservations');
-});
+// Route::get('/home', function () {
+//     return view('client-views.reservations');
+// });
+Route::get('/home', [floorController::class,'index'])->name('index');
+

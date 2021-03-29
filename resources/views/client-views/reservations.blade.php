@@ -11,14 +11,14 @@
 </ol>
 @endsection
 @section('content')
-<table id="table" class="display">
+<table id="table" class="display data-table">
     <thead>
         <tr>
-            <th>Room Number</th>
-            <th>Floor Name</th>
-            <th>Paid Price</th>
-            <th>Accompany Number</th>
-            <th>Reservation Date</th>
+            <th>id</th>
+            <th>name</th>
+            <th>manager</th>
+            <th>created by</th>
+            <th>actions</th>
         </tr>
     </thead>
 
@@ -26,28 +26,22 @@
 @endsection
 
 @section('script')
-<script>
-$(document).ready(function() {
-
-    $('#table').DataTable({
-        ajax: "/api/clients/{{ Auth::guard('client')->user()->id }}/reservations",
-        columns: [{
-                "data": "room.room_number"
-            },
-            {
-                "data": "room.floor.floor_name"
-            },
-            {
-                "data": "paid_price"
-            },
-            {
-                "data": "accompany_number"
-            },
-            {
-                "data": "reservation_date"
-            }
+<script type="text/javascript">
+$(function () {
+    
+    var table = $('.data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('index') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'floor_name', name: 'floor_name'},
+            {data: 'floor_manager', name: 'floor_manager'},
+            {data: 'created_by', name: 'created_by'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-});
+    
+  });
 </script>
 @endsection

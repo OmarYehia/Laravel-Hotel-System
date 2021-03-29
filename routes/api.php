@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get("floors", [FloorController::class, 'index']);
     Route::get('/floors/{floor}', [FloorController::class, 'show']);
     Route::put('floors/{floor}', [FloorController::class, 'update']);
-    Route::delete('floors/{floor}', [FloorController::class, 'destroy']);
+    Route::delete('floors/{floor}/delete', [FloorController::class, 'destroy']);
 
     // Rooms
     Route::post("/rooms", [RoomController::class, 'store']);
