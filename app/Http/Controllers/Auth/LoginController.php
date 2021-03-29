@@ -3,20 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Client;
 
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function __construct()
-    {
-        Auth::guard('client')->guest();
-    }
-
     public function index()
     {
-       
         return view('auth.login');
     }
 
@@ -26,11 +22,17 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-       if(!Auth::guard('client')->attempt($request->only('email', 'password'), $request->remember)){
-           return back()->with('status', 'Invalid login details');
-       }
-      
-       dd("logged in successfully");
+        
+        if (!Auth::guard('client')->attempt($request->only('email', 'password'), $request->remember)) {
+            return back()->with('status', 'Invalid login details');
+        }
        
+        $client =Client::where('email', $request->email) -> first();
+      
+        $client->update([
+            'last_login_date' => Carbon::now()->toDateTimeString(),
+        ]);
+        Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'));
+        return redirect()->route('index');
     }
 }

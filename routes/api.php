@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/clients/{client}', [ClientController::class, 'show']);
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
+    Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
 });
 /*
 Route::post('/sanctum/token', function (Request $request) {
@@ -73,7 +74,7 @@ Route::post('/sanctum/token', function (Request $request) {
     ]);
 
     $user = User::where('email', $request->email)->first();
-    
+
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
