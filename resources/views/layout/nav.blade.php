@@ -42,16 +42,22 @@
         @if(Auth::guard('client')->check())
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
+                @if(Auth::guard('client')->user()->avatar_image)
                 <img src="{{Auth::guard('client')->user()->avatar_image}}" class="img-circle elevation-2"
                     alt="User Image">
+                @elseif(Auth::guard('client')->user()->gender === "male")
+                <img src="{{ asset('img/male-default.png') }}" class="img-circle elevation-2" alt="User Image">
+                @elseif(Auth::guard('client')->user()->gender === "female")
+                <img src="{{ asset('img/female-default.png') }}" class="img-circle elevation-2" alt="User Image">
+                @endif
+
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{Auth::guard('client')->user()->name}}</a>
 
             </div>
-            <div class="info">
+            <div class="info ml-auto">
                 <a href="{{route ('logout') }}" class="d-block">Logout</a>
-
             </div>
         </div>
         @endif
