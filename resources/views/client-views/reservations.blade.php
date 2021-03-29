@@ -21,7 +21,6 @@
             <th>Reservation Date</th>
         </tr>
     </thead>
-
 </table>
 @endsection
 
