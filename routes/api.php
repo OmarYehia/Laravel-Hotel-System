@@ -63,8 +63,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/clients/{client}', [ClientController::class, 'show']);
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
-    Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
 });
+Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
 /*
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([

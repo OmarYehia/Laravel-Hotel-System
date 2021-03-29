@@ -41,7 +41,7 @@
                     <input type="email" class="form-control @error('email') border-danger @enderror "
                         value="{{old('email')}}" placeholder="Email" name="email">
                     <div class="input-group-append">
-                        <div class="input-group-text @error('name') border-danger @enderror">
+                        <div class="input-group-text @error('email') border-danger @enderror">
                             <span class="fas fa-envelope"></span>
                         </div>
                     </div>

@@ -21,7 +21,6 @@
             <th>actions</th>
         </tr>
     </thead>
-
 </table>
 @endsection
 

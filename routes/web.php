@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use  App\Http\Controllers\Auth\LogoutController;
 use  App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\reservationController;
+use  App\Http\Controllers\Auth\ForgotPasswordController;
+use  App\Http\Controllers\Auth\ResetPasswordController;
 use  Illuminate\Support\Facades\Route;
 use App\Http\Controllers\floorController;
 /*
@@ -19,7 +21,7 @@ use App\Http\Controllers\floorController;
 
 Route::get('/', function () {
     return view('index');
-})->name('index');
+})->name('index')->middleware(['auth:client']);
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store'])->name('register');
@@ -34,3 +36,8 @@ Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 // });
 Route::get('/home', [floorController::class,'index'])->name('index');
 
+Route::get('/forget-password', [ForgotPasswordController::class,'getEmail'])->name('forget-password');
+Route::post('/forget-password', [ForgotPasswordController::class,'postEmail'])->name('forget-password');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class,'getPassword'])->name('reset-password');
+Route::post('/reset-password', [ResetPasswordController::class,'updatePassword'])->name('reset-password');
