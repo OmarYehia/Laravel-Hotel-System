@@ -28,11 +28,11 @@ Route::get('/', function () {
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store'])->name('register');
 
-Route::get('/login/client', [LoginController::class,'showClientLoginForm'])->name('login');
-Route::post('/login/client', [LoginController::class,'clientLogin'])->name('login');
+Route::get('/login/client', [LoginController::class,'showClientLoginForm'])->name('login.client');
+Route::post('/login/client', [LoginController::class,'clientLogin'])->name('login.client');
 
-Route::get('/login/admin', [LoginController::class,'showAdminLoginForm']);
-Route::post('/login/admin', [LoginController::class,'adminLogin']);
+Route::get('/login/admin', [LoginController::class,'showAdminLoginForm'])->name('login.admin');
+Route::post('/login/admin', [LoginController::class,'adminLogin'])->name('login.admin');
 
 Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
@@ -49,5 +49,5 @@ Route::get('/admin', function () {
     return view('admin-views.home');
 })->middleware('auth:user');
 
-Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('admin.index');
-Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store');
+Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('admin.index')->middleware('auth:user');
+Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
