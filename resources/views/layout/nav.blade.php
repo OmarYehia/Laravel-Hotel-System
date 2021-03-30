@@ -54,9 +54,10 @@
 
             </div>
             <div class="info ml-auto">
-                @if(Auth::guard('client')->check())
-                   <a href="{{route ('logout') }}" class="d-block">Logout</a>
+            @if(Auth::guard('client')->check())
+                   <a href="{{route ('logoutclient') }}" class="d-block">Logout</a>
                 @elseif(Auth::guard('user')->check())
+                
                 <a href="{{route ('logout') }}" class="d-block">Logout</a>
                 @endif
             </div>

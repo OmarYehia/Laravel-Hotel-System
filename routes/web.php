@@ -6,9 +6,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\GoogleClientController;
 use App\Http\Controllers\StaffRegisterController;
 use App\Http\Controllers\StaffLogoutController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +41,11 @@ Route::post('/login/client', [LoginController::class,'clientLogin'])->name('logi
 Route::get('/login/admin', [LoginController::class,'showAdminLoginForm'])->name('login.admin');
 Route::post('/login/admin', [LoginController::class,'adminLogin'])->name('login.admin');
 
-Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
+Route::get('/auth/google/redirect',[GoogleClientController::class, 'redirectToProvider']);
+Route::get('/auth/google/callback',[GoogleClientController::class, 'handleProviderCallback']);
 
+Route::get('/logout/client', [LogoutController::class,'logout'])->name('logoutclient');
+Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 // Route::get('/home', [FloorController::class,'index'])->name('index');
 
 Route::get('/forget-password', [ForgotPasswordController::class,'getEmail'])->name('forget-password');
@@ -57,4 +62,3 @@ Route::get('/admin', function () {
 Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('admin.index')->middleware('auth:user');
 Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
 
-Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
