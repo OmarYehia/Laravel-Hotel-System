@@ -154,13 +154,13 @@
 
             <div class="social-auth-links text-center">
                 <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-danger">
+                <a href="/auth/google/redirect" class="btn btn-block btn-danger">
                     <i class="fab fa-google-plus mr-2"></i>
-                    Sign up using Google+
+                    Sign up using Google
                 </a>
             </div>
 
-            <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
+            <a href="{{ route('login.client') }}" class="text-center">I already have a membership</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
