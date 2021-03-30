@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     //users
     Route::post("/users", [UserController::class, 'store']);
     Route::get("/users", [UserController::class, 'index']);
@@ -38,7 +38,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
     // Floors
     Route::post("/floors", [FloorController::class, 'store']);
-    Route::get("floors", [FloorController::class, 'index']);
     Route::get('/floors/{floor}', [FloorController::class, 'show']);
     Route::put('floors/{floor}', [FloorController::class, 'update']);
     Route::delete('floors/{floor}/delete', [FloorController::class, 'destroy']);
@@ -63,9 +62,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('/clients/{client}', [ClientController::class, 'show']);
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
-//});
+});
+Route::get("floors", [FloorController::class, 'index']);
 Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
-/*
+
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
@@ -78,7 +78,7 @@ Route::post('/sanctum/token', function (Request $request) {
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
-*/
+
 // //users
 // Route::post("/users", [UserController::class, 'store']);
 // Route::get("/users", [UserController::class, 'index']);

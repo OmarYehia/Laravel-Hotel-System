@@ -7,11 +7,8 @@ use App\Http\Requests\StoreClientRequest;
 use App\Models\Client;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller

@@ -16,8 +16,14 @@
     <!-- /.login-logo -->
     <div class="card p-4">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
             @isset($url)
+            @if($url === "admin")
+            <p class="login-box-msg pb-1">Sign in as an <b>Admin</b></p>
+            <p class="login-box-msg">Click <a href="/login/client">here</a> to sign in as a client</p>
+            @elseif($url === "client")
+            <p class="login-box-msg pb-1">Sign in as a <b>Client</b></p>
+            <p class="login-box-msg">Click <a href="/login/admin">here</a> to sign in as an admin</p>
+            @endif
             <form action='{{ url("login/$url") }}' method="POST">
                 @else
                 <form method="POST" action="{{ route('login') }}">
@@ -46,43 +52,43 @@
                         <input type="password" class="form-control @error('password') border-danger @enderror "
                             placeholder="Password" name="password">
                         <div class="input-group-append">
-                            <div class="input-group-text @error('email') border-danger @enderror">
+                            <div class="input-group-text @error('password') border-danger @enderror">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-        </div>
-        <div class="row">
-            <div class="col-8">
-                <div class="icheck-primary">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">
-                        Remember Me
-                    </label>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
                 </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-            </div>
-            <!-- /.col -->
-        </div>
-        </form>
+                <!-- /.social-auth-links -->
 
-        <div class="social-auth-links text-center mb-3">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-danger">
-                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-            </a>
+                <p class="mb-1">
+                    <a href="{{route ('forget-password') }}">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="{{ route ('register') }}" class="text-center">Register a new membership</a>
+                </p>
         </div>
-        <!-- /.social-auth-links -->
-
-        <p class="mb-1">
-            <a href="{{route ('forget-password') }}">I forgot my password</a>
-        </p>
-        <p class="mb-0">
-            <a href="{{ route ('register') }}" class="text-center">Register a new membership</a>
-        </p>
     </div>
     <!-- /.login-card-body -->
 </div>

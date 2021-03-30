@@ -14,6 +14,7 @@
 <table id="table" class="display data-table">
     <thead>
         <tr>
+            @if (\Request::route()->getName() == "manage.floors")
             <th>id</th>
             <th>name</th>
             <th>manager</th>
@@ -21,6 +22,16 @@
             @role('admin')
             <th>actions</th>
             @endrole
+            @endif
+            @if (\Request::route()->getName() == "manage.rooms")
+            <th>id</th>
+            <th>room number</th>
+            <th>room price</th>
+            <th>room capacity</th>
+            @role('admin')
+            <th>actions</th>
+            @endrole
+            @endif
         </tr>
     </thead>
 </table>
@@ -33,7 +44,7 @@ $(function () {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('index') }}",
+        @if (\Request::route()->getName() == "manage.floors")
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'floor_name', name: 'floor_name'},
@@ -42,8 +53,19 @@ $(function () {
             @role('admin')
             {data: 'action', name: 'action', orderable: false, searchable: false},
             @endrole
-
         ]
+        @endif
+        @if (\Request::route()->getName() == "manage.rooms")
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'room_number', name: 'room_number'},
+            {data: 'room_price', name: 'room_price'},
+            {data: 'room_capacity', name: 'room_capacity'},
+            @role('admin')
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+            @endrole
+        ]
+        @endif
     });
     
   });

@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\Api\FloorController;
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-use  App\Http\Controllers\Auth\LogoutController;
-use  App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\reservationController;
-use  App\Http\Controllers\Auth\ForgotPasswordController;
-use  App\Http\Controllers\Auth\ResetPasswordController;
-use  Illuminate\Support\Facades\Route;
-use App\Http\Controllers\floorController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\floorController as ControllersFloorController;
+use App\Http\Controllers\managingController;
+use App\Http\Controllers\StaffRegisterController;
+use App\Http\Controllers\StaffLogoutController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,28 +24,45 @@ use App\Http\Controllers\floorController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('index');
-})->name('index');
+    if (Auth::guard('client')->check()) {
+        return view('client-views.reservations');
+    } elseif (Auth::guard('user')->check()) {
+        return route('admin.home');
+    }
+})->name('index')->middleware('auth:client');
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store'])->name('register');
 
-Route::get('/login/client', [LoginController::class,'showClientLoginForm'])->name('login');
-Route::post('/login/client', [LoginController::class,'clientLogin'])->name('login');
+Route::get('/login/client', [LoginController::class,'showClientLoginForm'])->name('login.client');
+Route::post('/login/client', [LoginController::class,'clientLogin'])->name('login.client');
 
-Route::get('/login/admin', [LoginController::class,'showAdminLoginForm']);
-Route::post('/login/admin', [LoginController::class,'adminLogin']);
+Route::get('/login/admin', [LoginController::class,'showAdminLoginForm'])->name('login.admin');
+Route::post('/login/admin', [LoginController::class,'adminLogin'])->name('login.admin');
 
 Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
-// Route::get('/home', function () {
-//     return view('client-views.reservations');
-// });
-Route::get('/home', [floorController::class,'index'])->name('index');
+// Route::get('/home', [FloorController::class,'index'])->name('index');
 
 Route::get('/forget-password', [ForgotPasswordController::class,'getEmail'])->name('forget-password');
 Route::post('/forget-password', [ForgotPasswordController::class,'postEmail'])->name('forget-password');
 
 Route::get('/reset-password/{token}', [ResetPasswordController::class,'getPassword'])->name('reset-password');
 Route::post('/reset-password', [ResetPasswordController::class,'updatePassword'])->name('reset-password');
+
+// Admin routes
+Route::get('/admin', function () {
+    return view('admin-views.home');
+})->name('admin.home')->middleware('auth:user');
+
+Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('admin.index')->middleware('auth:user');
+Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
+
+Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
+
+
+Route::get('/manage-floors', [managingController::class, 'floors'])->name('manage.floors');
+Route::get('/manage-rooms', [managingController::class, 'rooms'])->name('manage.rooms');
+

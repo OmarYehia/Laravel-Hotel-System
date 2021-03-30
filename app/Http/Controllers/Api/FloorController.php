@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFloorRequest;
 use App\Http\Resources\FloorResource;
 use App\Models\Floor;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class FloorController extends Controller
 {
@@ -20,7 +22,7 @@ class FloorController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $allFloors = Floor::with(['manager', 'creator'])->get();
         return FloorResource::collection($allFloors);
@@ -41,5 +43,25 @@ class FloorController extends Controller
     {
         $floor->update($request->all());
         return response()->json(['message' => 'Updated successfully!']);
+    }
+
+    public function dataTable(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Floor::latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                        $btn = '<a href="/api/floors/'.$row->id.'" class="edit btn btn-primary btn-sm">View</a>';
+                        $btn = $btn.'<a href="" class="edit btn btn-primary btn-sm">Edit</a>';
+                        $btn = $btn.'<a href="/api/floors/'.$row->id.'/delete" class="edit btn btn-primary btn-sm">Delete</a>';
+     
+                        return $btn;
+                    })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+      
+        return view('client-views.reservations');
     }
 }
