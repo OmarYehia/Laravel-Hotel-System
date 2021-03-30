@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+//Route::group(['middleware' => ['auth:sanctum']], function () {
     //users
     Route::post("/users", [UserController::class, 'store']);
     Route::get("/users", [UserController::class, 'index']);
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/clients/{client}', [ClientController::class, 'show']);
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
-});
+//});
 Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
 /*
 Route::post('/sanctum/token', function (Request $request) {

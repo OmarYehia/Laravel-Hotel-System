@@ -15,7 +15,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        $createdBy = User::find($this->created_by);
+       // $createdBy = User::find($this->created_by);
         return [
             'name' => $this->name,
             'email' => $this->email,

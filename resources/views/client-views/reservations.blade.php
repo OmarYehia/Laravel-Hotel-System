@@ -18,7 +18,9 @@
             <th>name</th>
             <th>manager</th>
             <th>created by</th>
+            @role('admin')
             <th>actions</th>
+            @endrole
         </tr>
     </thead>
 </table>
@@ -37,7 +39,10 @@ $(function () {
             {data: 'floor_name', name: 'floor_name'},
             {data: 'floor_manager', name: 'floor_manager'},
             {data: 'created_by', name: 'created_by'},
+            @role('admin')
             {data: 'action', name: 'action', orderable: false, searchable: false},
+            @endrole
+
         ]
     });
     

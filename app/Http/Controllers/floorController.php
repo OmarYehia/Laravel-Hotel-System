@@ -6,6 +6,8 @@ use App\Http\Resources\UserResource;
 use App\Models\Floor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Models\Role as ModelsRole;
 use Yajra\DataTables\Facades\DataTables;
 
 class floorController extends Controller

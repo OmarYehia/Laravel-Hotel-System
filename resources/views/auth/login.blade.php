@@ -37,20 +37,6 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< Updated upstream
-                </div>
-                @error('password')
-                <div class="text-danger">
-                    {{$message}}
-                </div>
-                @enderror
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control @error('password') border-danger @enderror "
-                        placeholder="Password" name="password">
-                    <div class="input-group-append">
-                        <div class="input-group-text @error('password') border-danger @enderror">
-                            <span class="fas fa-lock"></span>
-=======
                     @error('password')
                     <div class="text-danger">
                         {{$message}}
@@ -63,7 +49,6 @@
                             <div class="input-group-text @error('email') border-danger @enderror">
                                 <span class="fas fa-lock"></span>
                             </div>
->>>>>>> Stashed changes
                         </div>
                     </div>
         </div>
