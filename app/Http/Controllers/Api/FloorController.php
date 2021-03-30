@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFloorRequest;
 use App\Http\Resources\FloorResource;
 use App\Models\Floor;
+use Illuminate\Http\Request;
 
 class FloorController extends Controller
 {
@@ -20,7 +21,7 @@ class FloorController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $allFloors = Floor::with(['manager', 'creator'])->get();
         return FloorResource::collection($allFloors);

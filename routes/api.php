@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Floors
     Route::post("/floors", [FloorController::class, 'store']);
-    Route::get("floors", [FloorController::class, 'index']);
+   
     Route::get('/floors/{floor}', [FloorController::class, 'show']);
     Route::put('floors/{floor}', [FloorController::class, 'update']);
     Route::delete('floors/{floor}/delete', [FloorController::class, 'destroy']);
@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
 });
+Route::get("floors", [FloorController::class, 'index']);
 Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
 /*
 Route::post('/sanctum/token', function (Request $request) {

@@ -65,9 +65,44 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                @yield('left-menu-items')
+                @if(Auth::guard('user')->check())
+                @if(Auth::guard('user')->user()->can('manage managers'))
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Manage managers</a>
+                </li>
+                @endif
+                @if(Auth::guard('user')->user()->can('manage receptionists'))
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Manage receptionists</a>
+                </li>
+                @endif
+                @if(Auth::guard('user')->user()->can('manage floors'))
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Manage floors</a>
+                </li>
+                @endif
+                @if(Auth::guard('user')->user()->can('manage rooms'))
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Manage rooms</a>
+                </li>
+                @endif
+                @if(Auth::guard('user')->user()->can('approve clients'))
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Approve clients</a>
+                </li>
+                @endif
+                <hr>
+                @if(Auth::guard('user')->user()->can('manage managers') or Auth::guard('user')->user()->can('manage
+                receptionists'))
+                <li class="nav-item">
+                    <a href="/admin/register" class="nav-link"><i class="nav-icon fas fa-edit"></i> Register Staff
+                        Members</a>
+                </li>
+                @endif
+                @elseif(Auth::guard('client')->check())
+                <!-- Show Client nav -->
+                @endif
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

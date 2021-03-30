@@ -25,7 +25,7 @@ $rules = [
     '@PSR2' => true,
     'array_syntax' => ['syntax' => 'short'],
     'no_short_echo_tag' => true,
-    //'no_unused_imports' => true,
+    'no_unused_imports' => true,
     'ordered_imports' => ['sortAlgorithm' => 'alpha'],
     'method_chaining_indentation' => true,
     'class_attributes_separation' => true,

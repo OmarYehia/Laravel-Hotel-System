@@ -24,7 +24,6 @@ class UserResource extends JsonResource
                 'name' => $createdBy->name,
                 'email' => $createdBy->email,
                 'national_id' => $createdBy->national_id,
-                'is_banned' => $createdBy->isBanned,
             ],
         ];
     }
