@@ -22,8 +22,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('index');
-})->name('index');
+    if (Auth::guard('client')->check()) {
+        return view('client-views.reservations');
+    } elseif (Auth::guard('user')->check()) {
+        return route('admin.home');
+    }
+})->name('index')->middleware('auth:client');
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store'])->name('register');
@@ -47,7 +51,7 @@ Route::post('/reset-password', [ResetPasswordController::class,'updatePassword']
 // Admin routes
 Route::get('/admin', function () {
     return view('admin-views.home');
-})->middleware('auth:user');
+})->name('admin.home')->middleware('auth:user');
 
 Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('admin.index')->middleware('auth:user');
 Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
