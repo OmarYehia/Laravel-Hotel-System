@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\StaffRegisterController;
+use App\Http\Controllers\StaffLogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,3 +56,5 @@ Route::get('/admin', function () {
 
 Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('admin.index')->middleware('auth:user');
 Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
+
+Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
