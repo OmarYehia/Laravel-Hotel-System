@@ -24,6 +24,7 @@ class StaffRegisterController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->assignRole('manager');
+        $user->created_by = Auth::guard('user')->user()->id;
         
         if ($request->has('avatar_image')) {
             // Get image file

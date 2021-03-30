@@ -16,8 +16,14 @@
     <!-- /.login-logo -->
     <div class="card p-4">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
             @isset($url)
+            @if($url === "admin")
+            <p class="login-box-msg pb-1">Sign in as an <b>Admin</b></p>
+            <p class="login-box-msg">Click <a href="/login/client">here</a> to sign in as a client</p>
+            @elseif($url === "client")
+            <p class="login-box-msg pb-1">Sign in as a <b>Client</b></p>
+            <p class="login-box-msg">Click <a href="/login/admin">here</a> to sign in as an admin</p>
+            @endif
             <form action='{{ url("login/$url") }}' method="POST">
                 @else
                 <form method="POST" action="{{ route('login') }}">

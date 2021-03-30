@@ -62,6 +62,26 @@
         </div>
         @endif
 
+        @if(Auth::guard('user')->check())
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                @if(Auth::guard('user')->user()->avatar_image)
+                <img src="{{Auth::guard('user')->user()->avatar_image}}" class="img-circle elevation-2"
+                    alt="User Image">
+                @else(Auth::guard('client')->user()->gender === "male")
+                <img src="{{ asset('img/male-default.png') }}" class="img-circle elevation-2" alt="User Image">
+                @endif
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">{{Auth::guard('user')->user()->name}}</a>
+
+            </div>
+            <div class="info ml-auto">
+                <a href="{{route ('logout') }}" class="d-block">Logout</a>
+            </div>
+        </div>
+        @endif
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
