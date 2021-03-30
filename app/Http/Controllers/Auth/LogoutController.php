@@ -10,7 +10,10 @@ class LogoutController extends Controller
 {
     public function logout(Request $request)
     {
+<<<<<<< Updated upstream
       
+=======
+>>>>>>> Stashed changes
         Auth::guard('client')->logout();
         return redirect()->route('index');
     }

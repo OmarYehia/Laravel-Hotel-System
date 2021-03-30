@@ -54,10 +54,10 @@
 
             </div>
             <div class="info ml-auto">
-            @if(Auth::guard('client')->check())
-                   <a href="{{route ('logoutclient') }}" class="d-block">Logout</a>
+                @if(Auth::guard('client')->check())
+                <a href="{{ route ('logout.client') }}" class="d-block">Logout</a>
                 @elseif(Auth::guard('user')->check())
-                
+
                 <a href="{{route ('logout') }}" class="d-block">Logout</a>
                 @endif
             </div>
@@ -88,33 +88,37 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @if(Auth::guard('user')->check())
                 @if(Auth::guard('user')->user()->can('manage managers'))
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Manage managers</a>
+                <li class="nav-item mb-2">
+                    <a href="/" class="nav-link"><i class="nav-icon far fa-newspaper"></i> Manage managers</a>
                 </li>
+
                 @endif
                 @if(Auth::guard('user')->user()->can('manage receptionists'))
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Manage receptionists</a>
+                <li class="nav-item mb-2">
+                    <a href="/" class="nav-link"><i class="nav-icon fas fa-glasses"></i> Manage receptionists</a>
                 </li>
                 @endif
+
                 @if(Auth::guard('user')->user()->can('manage floors'))
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Manage floors</a>
+                <li class="nav-item mb-2">
+                    <a href="/" class="nav-link"><i class="nav-icon far fa-building"></i> Manage floors</a>
                 </li>
                 @endif
+
                 @if(Auth::guard('user')->user()->can('manage rooms'))
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Manage rooms</a>
+                <li class="nav-item mb-2">
+                    <a href="/" class="nav-link"><i class="nav-icon fas fa-person-booth"></i> Manage rooms</a>
                 </li>
                 @endif
+
                 @if(Auth::guard('user')->user()->can('approve clients'))
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Approve clients</a>
+                <li class="nav-item mb-2">
+                    <a href="/" class="nav-link"><i class="nav-icon fas fa-user-friends"></i> Approve clients</a>
                 </li>
                 @endif
-                <hr>
+
                 @if(Auth::guard('user')->user()->can('manage managers') or Auth::guard('user')->user()->can('manage receptionists'))
-                <li class="nav-item">
+                <li class="nav-item mb-2">
                     <a href="/admin/register" class="nav-link"><i class="nav-icon fas fa-edit"></i> Register Staff
                         Members</a>
                 </li>

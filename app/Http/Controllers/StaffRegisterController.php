@@ -29,6 +29,9 @@ class StaffRegisterController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            if (! Gate::allows('manage managers', Auth::guard('user')->user())) { // Security vulnarability fixed where manager could send post request and make another manager
+                $request->role = 'receptionist';
+            }
             $user->assignRole(strtolower($request->role));
             $user->created_by = Auth::guard('user')->user()->id;
         

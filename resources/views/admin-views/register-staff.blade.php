@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="">
-    <form action="{{ route('admin.store') }}" method="POST" class="row justify-content-center">
+    <form action="{{ route('admin.store') }}" method="POST" class="row justify-content-center" id="form">
         @csrf
         <div class="col-md-8">
             <div class="card card-secondary ">
@@ -19,8 +19,7 @@
                     <h3 class="card-title">Add a new staff member</h3>
 
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
                     </div>
                 </div>
