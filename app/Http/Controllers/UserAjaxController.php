@@ -23,9 +23,9 @@ class UserAjaxController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-            return  $res;
+            return $res;
         }
-      
+
         return view('admin-views.admins');
     }
 }

@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('national_id')->unique()->nullable();
             $table->string('avatar_image')->nullable();
+            $table->enum('role', ['admin', 'manager', 'receptionist']);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
