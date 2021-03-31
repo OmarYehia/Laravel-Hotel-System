@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+//Route::group(['middleware' => ['auth:sanctum']], function () {
     //users
     Route::post("/users", [UserController::class, 'store']);
     Route::get("/users/restore/all", [UserController::class, 'retrieve']);
@@ -35,17 +35,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete("/users/{userid}", [UserController::class, 'destroy']);
 
     // Floors
-    Route::post("/floors", [FloorController::class, 'store']);
+    Route::post("/floors", [FloorController::class, 'store'])->name('floors.store');
     Route::get('/floors/{floor}', [FloorController::class, 'show']);
-    Route::put('floors/{floor}', [FloorController::class, 'update']);
+    Route::put('floors/{floor}', [FloorController::class, 'update'])->name('floors.update');
     Route::delete('floors/{floor}/delete', [FloorController::class, 'destroy']);
 
     // Rooms
-    Route::post("/rooms", [RoomController::class, 'store']);
+    Route::post("/rooms", [RoomController::class, 'store'])->name('rooms.store');
     Route::get("rooms", [RoomController::class, 'index']);
     Route::get('/rooms/{room}', [RoomController::class, 'show']);
-    Route::put('rooms/{room}', [RoomController::class, 'update']);
-    Route::delete('rooms/{room}', [RoomController::class, 'destroy']);
+    Route::put('rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
+    Route::delete('rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');
 
     // Reservations
     Route::post("/reservations", [ReservationController::class, 'store']);
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/clients/{client}', [ClientController::class, 'show']);
     Route::put('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy']);
-});
+//});
 Route::get("floors", [FloorController::class, 'index']);
 Route::get('clients/{client}/reservations', [ClientController::class, 'show_client_reservations']);
 

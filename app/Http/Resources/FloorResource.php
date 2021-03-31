@@ -17,6 +17,7 @@ class FloorResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'floor_name' => $this->floor_name,
             'floor_manager' => new UserResource(User::find($this->floor_manager)),
             'created_by' => new UserResource(User::find($this->created_by)),

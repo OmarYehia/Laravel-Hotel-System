@@ -17,10 +17,12 @@ class RoomResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'room_number' => $this->room_number,
             'room_price' => $this->room_price,
             'room_capacity' => $this->room_capacity,
             'is_reserved' => $this->is_reserved,
+            'floor_id' => $this->floor_id,
             'floor' => new \App\Http\Resources\FloorResource(Floor::find($this->floor_id)),
             'created_by' => new \App\Http\Resources\UserResource(User::find($this->created_by)),
         ];

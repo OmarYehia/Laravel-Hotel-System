@@ -16,7 +16,7 @@ class FloorController extends Controller
     {
         try {
             $floor = Floor::create($request->all());
-            return new FloorResource($floor);
+            return response()->json(['success'=>'Product saved successfully.']);
         } catch (Exception $e) {
             return false;
         }
@@ -30,7 +30,7 @@ class FloorController extends Controller
 
     public function show(Floor $floor)
     {
-        return new FloorResource($floor);
+        // return new FloorResource($floor);
     }
 
     public function destroy(Floor $floor)
