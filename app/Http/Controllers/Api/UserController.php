@@ -7,7 +7,6 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\User;
-use Resources;
 
 class UserController extends Controller
 {

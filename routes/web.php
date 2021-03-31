@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\managingController;
+use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\StaffLogoutController;
 use App\Http\Controllers\StaffRegisterController;
+use App\Http\Controllers\UserAjaxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,4 +69,9 @@ Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name(
 Route::get('/manage-floors', [managingController::class, 'floors'])->name('manage.floors');
 Route::get('/manage-rooms', [managingController::class, 'rooms'])->name('manage.rooms');
 
+
+Route::get('/manage-receptionists', [ReceptionistController::class, 'index'])->name('manage.receptionists');
+
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
+
+Route::get('/users', [UserAjaxController::class, 'index'])->name('ajaxusers.index');

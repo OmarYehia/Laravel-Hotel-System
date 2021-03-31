@@ -6,9 +6,7 @@ use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use App\Models\User;
-use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,10 +24,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     //users
     Route::post("/users", [UserController::class, 'store']);
-    Route::get("/users", [UserController::class, 'index']);
     Route::get("/users/restore/all", [UserController::class, 'retrieve']);
     Route::get("/users/approve/{client}", [UserController::class, 'approve']);
     Route::get("/users/{userid}", [UserController::class, 'show']);
@@ -78,6 +76,10 @@ Route::post('/sanctum/token', function (Request $request) {
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
+
+Route::get("/users", [UserController::class, 'index']);
+
+
 
 // //users
 // Route::post("/users", [UserController::class, 'store']);
