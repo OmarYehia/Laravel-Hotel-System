@@ -11,6 +11,7 @@ use App\Http\Controllers\managingController;
 use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\StaffLogoutController;
 use App\Http\Controllers\StaffRegisterController;
+use App\Http\Controllers\UserAjaxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,3 +73,5 @@ Route::get('/manage-rooms', [managingController::class, 'rooms'])->name('manage.
 Route::get('/manage-receptionists', [ReceptionistController::class, 'index'])->name('manage.receptionists');
 
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
+
+Route::get('/users', [UserAjaxController::class, 'index'])->name('ajaxusers.index');

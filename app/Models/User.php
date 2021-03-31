@@ -40,4 +40,9 @@ class User extends Authenticatable implements BannableContract
         'password',
         'remember_token',
     ];
+
+    public function creator()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }
