@@ -89,7 +89,7 @@
                 @if(Auth::guard('user')->check())
                 @if(Auth::guard('user')->user()->can('manage managers'))
                 <li class="nav-item mb-2">
-                    <a href="/" class="nav-link"><i class="nav-icon far fa-newspaper"></i> Manage managers</a>
+                    <a href="{{ route('managers.index') }}" class="nav-link"><i class="nav-icon far fa-newspaper"></i> Manage managers</a>
                 </li>
 
                 @endif
@@ -125,6 +125,9 @@
                 @endif
                 @elseif(Auth::guard('client')->check())
                 <!-- Show Client nav -->
+                <li class="nav-item mb-2">
+                    <a href="{{route ('ajaxavailablerooms.index') }}" class="nav-link"><i class="nav-icon fas fa-bed"></i>View Available Rooms</a>
+                </li>
                 @endif
 
             </ul>

@@ -7,11 +7,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ManagerAjaxController;
 use App\Http\Controllers\managingController;
 use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\StaffLogoutController;
 use App\Http\Controllers\StaffRegisterController;
-use App\Http\Controllers\UserAjaxController;
+use App\Http\Controllers\AvailableRoomAjaxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,4 +75,7 @@ Route::get('/manage-receptionists', [ReceptionistController::class, 'index'])->n
 
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 
-Route::get('/users', [UserAjaxController::class, 'index'])->name('ajaxusers.index');
+
+Route::get('/available-rooms', [AvailableRoomAjaxController::class, 'index'])->name('ajaxavailablerooms.index');
+// Manager Routes
+Route::get('/managers', [ManagerAjaxController::class, 'index'])->name('managers.index');

@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserAjaxController extends Controller
+class ManagerAjaxController extends Controller
 {
     public function index(Request $request)
     {
+        if (!Auth::guard("user")->user()->can("manage managers")) {
+            abort(403);
+        }
+
         if ($request->ajax()) {
-            $data = User::latest()->get();
+            $data = User::where("role", '=', 'manager')->latest()->get();
             $data = UserResource::collection($data);
             $res = Datatables::of($data)
                 ->addIndexColumn()
@@ -23,9 +28,9 @@ class UserAjaxController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-            return  $res;
+            return $res;
         }
-      
-        return view('admin-views.admins');
+
+        return view('admin-views.managers');
     }
 }
