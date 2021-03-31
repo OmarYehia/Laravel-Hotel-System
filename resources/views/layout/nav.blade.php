@@ -89,7 +89,7 @@
                 @if(Auth::guard('user')->check())
                 @if(Auth::guard('user')->user()->can('manage managers'))
                 <li class="nav-item mb-2">
-                    <a href="/" class="nav-link"><i class="nav-icon far fa-newspaper"></i> Manage managers</a>
+                    <a href="{{ route('managers.index') }}" class="nav-link"><i class="nav-icon far fa-newspaper"></i> Manage managers</a>
                 </li>
 
                 @endif
