@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\managingController;
 use App\Http\Controllers\StaffLogoutController;
 use App\Http\Controllers\StaffRegisterController;
+use App\Http\Controllers\UserAjaxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,3 +69,5 @@ Route::get('/manage-floors', [managingController::class, 'floors'])->name('manag
 Route::get('/manage-rooms', [managingController::class, 'rooms'])->name('manage.rooms');
 
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
+
+Route::get('/users', [UserAjaxController::class, 'index'])->name('ajaxusers.index');

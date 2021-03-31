@@ -13,7 +13,7 @@
 <div class="">
     <form action="{{ route('admin.store') }}" method="POST" class="row justify-content-center" id="form">
         @csrf
-        <div class="col-md-8">
+        <div class="col-md-5">
             <div class="card card-secondary ">
                 <div class="card-header">
                     <h3 class="card-title">Add a new staff member</h3>
