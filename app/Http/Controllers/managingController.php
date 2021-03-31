@@ -25,9 +25,9 @@ class managingController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-      
         return view('client-views.reservations');
     }
+
     public function rooms(Request $request)
     {
         if ($request->ajax()) {
@@ -44,7 +44,6 @@ class managingController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-      
         return view('client-views.reservations');
     }
 }

@@ -28,9 +28,9 @@
             <th>room number</th>
             <th>room price</th>
             <th>room capacity</th>
-            @role('admin')
-            <th>actions</th>
-            @endrole
+            @if(Auth::guard('user')->user()->can('manage managers'))
+                <th>actions</th>
+            @endif
             @endif
         </tr>
     </thead>
@@ -61,9 +61,9 @@ $(function () {
             {data: 'room_number', name: 'room_number'},
             {data: 'room_price', name: 'room_price'},
             {data: 'room_capacity', name: 'room_capacity'},
-            @role('admin')
+            @if(Auth::guard('user')->user()->can('manage managers'))
             {data: 'action', name: 'action', orderable: false, searchable: false},
-            @endrole
+            @endif
         ]
         @endif
     });
