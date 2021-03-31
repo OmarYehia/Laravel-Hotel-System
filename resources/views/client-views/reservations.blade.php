@@ -32,6 +32,15 @@
             <th>actions</th>
             @endrole
             @endif
+            @if (\Request::route()->getName() == "manage.receptionists")
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+            @role('admin')
+            <th>created by</th>
+            @endrole
+            <th>actions</th>
+            @endif
         </tr>
     </thead>
 </table>
@@ -64,6 +73,18 @@ $(function () {
             @role('admin')
             {data: 'action', name: 'action', orderable: false, searchable: false},
             @endrole
+        ]
+        @endif
+        @if (\Request::route()->getName() == "manage.receptionists")
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            @role('admin')
+            {data: 'created_by', name: 'created_by'},
+            @endrole
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+           
         ]
         @endif
     });
