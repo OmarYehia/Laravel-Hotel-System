@@ -1,4 +1,4 @@
-@if(Auth::guard("user")->user()->can("manage managers"))
+@if(Auth::guard("user")->user()->can("manage receptionists"))
 @extends('layout.main')
 
 @section('title', 'Hotel Transylvania')
@@ -6,7 +6,7 @@
 @section('bread-crumps')
 <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-    <li class="breadcrumb-item active">Manager List</li>
+    <li class="breadcrumb-item active">Receptionist List</li>
 </ol>
 @endsection
 
@@ -40,7 +40,7 @@ $(function() {
     // });
 
     var table = $('#data-table').DataTable({
-        ajax: "{{ route('managers.index') }}",
+        ajax: "{{ route('receptionists.index') }}",
         dataSrc: 'data',
         columns: [{
                 data: 'id'
@@ -64,7 +64,7 @@ $(function() {
             },
         ],
         // This condition to show the buttons for only the person who created user or if he's a super admin
-         // Conditions applies to only managers
+        @if(!Auth::guard("user")->user()->can("manage managers"))// Conditions applies to only managers
         initComplete: function(settings, json) {
             const currentUserID = "{{ Auth::guard('user')->user()->id }}";
             const actionBtns = Array.from(document.getElementsByClassName("actionBtn"))
@@ -75,6 +75,7 @@ $(function() {
                 }
             })
         }
+        @endif
     });
     
     
