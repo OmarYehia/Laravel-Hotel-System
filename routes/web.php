@@ -77,6 +77,9 @@ Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 Route::get('/available-rooms', [AvailableRoomAjaxController::class, 'index'])->name('ajaxavailablerooms.index');
 // Manager Routes
 Route::get('/managers', [ManagerAjaxController::class, 'index'])->name('managers.index');
+Route::get('/managers/{managerID}', [ManagerAjaxController::class, 'edit']);
+Route::put('/managers/{managerID}', [ManagerAjaxController::class, 'update']);
+Route::delete('/managers/{managerID}', [ManagerAjaxController::class, 'destroy']);
 
 // Receptionists Routes
 Route::get('/receptionists', [ReceptionistAjaxController::class, 'index'])->name('receptionists.index');

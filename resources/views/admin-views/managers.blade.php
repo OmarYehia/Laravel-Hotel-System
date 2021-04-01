@@ -27,17 +27,60 @@
     </tbody>
 </table>
 
+<div class="modal fade" id="ajaxModel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modelHeading"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="errors text-danger mb-2">
+                        
+                </div>
+                <form id="managerForm" name="managerForm" class="form-horizontal">
+                   <input type="hidden" name="manager_id" id="manager_id">
+                    <div class="form-group">
+                        <label for="name" class="col-5 control-label">Name</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="" maxlength="50" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="col-5control-label">Email</label>
+                        <div class="col-sm-12">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="" maxlength="50" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="col-5 control-label">National ID</label>
+                        <div class="col-sm-12">
+                            <input type="email" class="form-control" id="national_id" name="national_id" placeholder="National ID" value="" maxlength="50" required="">
+                        </div>
+                    </div>
+      
+                    <div class="col-sm-offset-2 col-sm-10">
+                     <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                     </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
 <script>
 $(function() {
 
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     var table = $('#data-table').DataTable({
         ajax: "{{ route('managers.index') }}",
@@ -76,69 +119,61 @@ $(function() {
             })
         }
     });
-    
-    
-    // $('#createNewProduct').click(function() {
-        //     $('#saveBtn').val("create-product");
-        //     $('#product_id').val('');
-        //     $('#productForm').trigger("reset");
-        //     $('#modelHeading').html("Create New Product");
-        //     $('#ajaxModel').modal('show');
-        // });
         
-        // $('body').on('click', '.editProduct', function() {
-            //     var product_id = $(this).data('id');
-            //     $.get("" + '/' + product_id + '/edit', function(data) {
-                //         $('#modelHeading').html("Edit Product");
-                //         $('#saveBtn').val("edit-user");
-                //         $('#ajaxModel').modal('show');
-                //         $('#product_id').val(data.id);
-                //         $('#name').val(data.name);
-                //         $('#detail').val(data.detail);
-                //     })
-                // });
+    $('body').on('click', '.editManager', function() {
+    const managerID = $(this).data('id');
+    $.get(`/managers/${managerID}`, function(data) {
+        $('#modelHeading').html("Edit Manager Data");
+        $('#saveBtn').val("edit-user");
+        $('#ajaxModel').modal('show');
+        $('#manager_id').val(data.data.id);
+        $('#name').val(data.data.name);
+        $('#email').val(data.data.email);
+        $('#national_id').val(data.data.national_id);
+        })
+    });
                 
-                // $('#saveBtn').click(function(e) {
-                    //     e.preventDefault();
-                    //     $(this).html('Sending..');
+    $('#saveBtn').click(function(e) {
+        e.preventDefault();
+        $(this).html('Sending..');
+        $.ajax({
+            data: $('#managerForm').serialize(),
+            url: `/managers/${$('#manager_id').val()}`,
+            type: "PUT",
+            dataType: 'json',
+            success: function(data) {
+                $('#managerForm').trigger("reset");
+                $('#ajaxModel').modal('hide');
+                location.reload();
+            },
+            error: function(data) {
+                for (const [key, value] of Object.entries(data.responseJSON.errors)) {
+                    $(".errors").append(`${value}<br>`);
+                }
+                $('#saveBtn').html('Save Changes');
+            },
+        });
+    });
+                
+    $('body').on('click', '.deleteManager', function() {
+        const managerID = $(this).data("id");
+        const agree = confirm("Are You sure want to delete ?");
+        if(agree){
+            $.ajax({
+                type: "DELETE",
+                url: `/managers/${managerID}`,
+                success: function(data) {
+                    location.reload();
+                },
+                error: function(data) {
+                    alert(data.responseJSON.message);
+                    console.log('Error:', data);
+                }
+            });
+        }
+    });
                     
-                    //     $.ajax({
-                        //         data: $('#productForm').serialize(),
-                        //         url: "",
-                        //         type: "POST",
-                        //         dataType: 'json',
-                        //         success: function(data) {
-                            
-                            //             $('#productForm').trigger("reset");
-                            //             $('#ajaxModel').modal('hide');
-                            //             table.draw();
-                            
-                            //         },
-                            //         error: function(data) {
-                                //             console.log('Error:', data);
-                                //             $('#saveBtn').html('Save Changes');
-                                //         }
-                                //     });
-                                // });
-                                
-                                // $('body').on('click', '.deleteProduct', function() {
-                                    
-                                    //     var product_id = $(this).data("id");
-                                    //     confirm("Are You sure want to delete !");
-                                    
-                                    //     $.ajax({
-                                        //         type: "DELETE",
-                                        //         url: "" + '/' + product_id,
-                                        //         success: function(data) {
-                                            //             table.draw();
-                                            //         },
-                                            //         error: function(data) {
-                                                //             console.log('Error:', data);
-                                                //         }
-                                                //     });
-                                                // });
-                                                
-                                            });
+});
 </script>
 @endsection
 @endif 
