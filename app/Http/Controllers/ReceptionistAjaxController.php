@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,8 +23,8 @@ class ReceptionistAjaxController extends Controller
             $res = Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct actionBtn">Edit</a>';
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct actionBtn">Delete</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Edit" class="edit btn btn-primary btn-sm editReceptionist actionBtn">Edit</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-danger btn-sm deleteReceptionist actionBtn">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -32,5 +33,23 @@ class ReceptionistAjaxController extends Controller
         }
 
         return view('admin-views.receptionists');
+    }
+
+    public function edit($userID)
+    {
+        $user = User::where('id', $userID)->firstOrFail();
+        return new UserResource($user);
+    }
+
+    public function update(StoreUserRequest $request, $userID)
+    {
+        $user = User::where('id', $userID)->firstOrFail();
+        $user->update($request->all());
+        return new UserResource($user);
+    }
+
+    public function destroy($userID)
+    {
+        $user = User::where('id', $userID)->delete();
     }
 }

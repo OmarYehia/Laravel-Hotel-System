@@ -83,4 +83,11 @@ Route::delete('/managers/{managerID}', [ManagerAjaxController::class, 'destroy']
 
 // Receptionists Routes
 Route::get('/receptionists', [ReceptionistAjaxController::class, 'index'])->name('receptionists.index');
+Route::get('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'edit']);
+Route::put('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'update']);
+Route::delete('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'destroy']);
+
+
+
+
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');

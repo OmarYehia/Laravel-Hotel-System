@@ -26,12 +26,12 @@ class StoreUserRequest extends FormRequest
     {
         $rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$this->manager_id,
+            'email' => 'required|email|unique:users,email,'.$this->id,
             'password' => 'required|min:6',
-            'national_id' => 'integer|unique:users,national_id,'.$this->manager_id,
+            'national_id' => 'integer|unique:users,national_id,'.$this->id,
         ];
 
-        if (Auth::guard('user')->user()->can('manage managers')) {
+        if (Auth::guard('user')->user()->can('manage managers') or Auth::guard('user')->user()->can('manage receptionists')) {
             $rules['password'] = '';
         }
 

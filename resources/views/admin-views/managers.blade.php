@@ -38,7 +38,7 @@
                         
                 </div>
                 <form id="managerForm" name="managerForm" class="form-horizontal">
-                   <input type="hidden" name="manager_id" id="manager_id">
+                   <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="name" class="col-5 control-label">Name</label>
                         <div class="col-sm-12">
@@ -126,7 +126,7 @@ $(function() {
         $('#modelHeading').html("Edit Manager Data");
         $('#saveBtn').val("edit-user");
         $('#ajaxModel').modal('show');
-        $('#manager_id').val(data.data.id);
+        $('#id').val(data.data.id);
         $('#name').val(data.data.name);
         $('#email').val(data.data.email);
         $('#national_id').val(data.data.national_id);
@@ -138,7 +138,7 @@ $(function() {
         $(this).html('Sending..');
         $.ajax({
             data: $('#managerForm').serialize(),
-            url: `/managers/${$('#manager_id').val()}`,
+            url: `/managers/${$('#id').val()}`,
             type: "PUT",
             dataType: 'json',
             success: function(data) {
