@@ -42,8 +42,13 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
-        $room->delete();
-        return response()->json(['message' => 'Deleted successfully!']);
+        if ($room->is_reserved)
+        {
+            return response()->json(['message' => 'Room is reserved Cannot be deleted!']);
+        }else{
+            $room->delete();
+            return response()->json(['message' => 'Deleted successfully!']);
+        }
     }
 
     public function update(StoreRoomRequest $request, Room $room)

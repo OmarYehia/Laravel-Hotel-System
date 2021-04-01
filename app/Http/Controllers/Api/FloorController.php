@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFloorRequest;
 use App\Http\Resources\FloorResource;
 use App\Models\Floor;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -35,6 +36,10 @@ class FloorController extends Controller
 
     public function destroy(Floor $floor)
     {
+        if(count(Room::where('floor_id',$floor->id)->get()))
+        {
+            return response()->json(['message' => 'There are rooms associated with this floor, can not delete it!']);
+        }
         $floor->delete();
         return response()->json(['message' => 'Deleted successfully!']);
     }
