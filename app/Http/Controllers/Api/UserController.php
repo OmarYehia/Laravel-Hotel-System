@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Mail\ApprovedNotification;
 use App\Models\Client;
 use App\Models\User;
+use App\Notifications\AccountApproved;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Mail;
@@ -61,8 +62,10 @@ class UserController extends Controller
             'approval_status'=>$request->all()['approval_status'],
         ]);
 
-        Mail::to($client->email)
-            ->queue(new ApprovedNotification($client->name));
+        // Mail::to($client->email)
+        //     ->queue(new ApprovedNotification($client->name));
+
+        $client->notify(new AccountApproved($client->name));
 
         return response()->json(['message' => 'Client propsal approved!']);
     }

@@ -11,13 +11,16 @@ class AccountApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    private $name;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($name)
     {
+        $this->name = $name;
     }
 
     /**
@@ -40,8 +43,9 @@ class AccountApproved extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Hello!')
-            ->line('Welcome to the hotel. Your account has been aprroved.')
+            ->greeting('Hello '. $this->name . '!')
+            ->line('Welcome to Hotel Transylvania. Your account has been approved.')
+            ->action('Go to your home screen', url('/'))
             ->line('Thank you for using our application!');
     }
 
