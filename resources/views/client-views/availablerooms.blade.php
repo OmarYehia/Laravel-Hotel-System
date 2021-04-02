@@ -40,12 +40,12 @@
                 <h4 class="modal-title" id="modelHeading"></h4>
             </div>
             <div class="modal-body">
-                <form id="productForm" name="productForm" class="form-horizontal">
+                <form id="productForm" name="productForm" class="form-horizontal" action="/stripe-payment">
                    <input type="hidden" name="room_id" id="room_id">
                     <div class="form-group">
-                        <label for="name" class="col-sm-6 control-label">Enter the Capacity you want</label>
+                        <label for="name" class="col-sm-6 control-label">Accompany number</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Enter Capacity" value="" maxlength="50" required="">
+                            <input type="text" class="form-control" id="accompany_number" name="accompany_number" placeholder="Enter Capacity" value="{{ $request->all()['capacity'] }}" maxlength="50" required="">
                         </div>
                     </div>
      
@@ -68,13 +68,12 @@
 
 @endsection
 
-
 @section('script')
 <script type="text/javascript">
 $(function () {
     
     var table = $('#data-table').DataTable({
-        ajax: "{{ route('ajaxavailablerooms.index') }}",
+        ajax: "/available-rooms?capacity={{ $request->all()['capacity'] }}",
         dataSrc: 'data',
         columns: [
             {
@@ -106,27 +105,9 @@ $(function () {
           $('#price').val(data.data.room_price);
       })
    })
+   
    $('#saveBtn').click(function (e) {
-        e.preventDefault();
         $(this).html('Booking..');
-    
-        $.ajax({
-          data: $('#productForm').serialize(),
-          url: "/stripe-payment",
-          type: "get",
-          dataType: 'json',
-          success: function (data) {
-     
-              $('#productForm').trigger("reset");
-              $('#ajaxModel').modal('hide');
-              table.draw();
-         
-          },
-          error: function (data) {
-              console.log('Error:', data);
-              $('#saveBtn').html('Book this Room');
-          }
-      });
     });
    
   });

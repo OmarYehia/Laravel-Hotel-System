@@ -79,9 +79,9 @@ Route::get('/clients-proposals', [ClientController::class, 'NotApproved'])->name
 
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 
-
+// Client Reservations
 Route::get('/available-rooms', [AvailableRoomAjaxController::class, 'index'])->name('ajaxavailablerooms.index');
-
+Route::get('/make-a-reservation', [AvailableRoomAjaxController::class, 'capacityForm']);
 
 Route::get('/stripe-payment', [StripeController::class, 'handleGet']);
 Route::post('/stripe-payment', [StripeController::class, 'handlePost'])->name('stripe.payment');
