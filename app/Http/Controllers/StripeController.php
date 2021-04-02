@@ -27,7 +27,7 @@ class StripeController extends Controller
         $details = $request->all();
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create([
-            "amount" => $details['paid_price'],
+            "amount" => $details['paid_price'] * 100,
             "currency" => "usd",
             "source" => $request->stripeToken,
             "description" => "Making test payment.",
@@ -43,7 +43,7 @@ class StripeController extends Controller
                 'accompany_number' => 'required|integer',
             ],
         ]);
-
+      
         $reservation = new Reservation;
         $reservation->client_id = $details['client_id'];
         $reservation->room_id = $details['room_id'];
