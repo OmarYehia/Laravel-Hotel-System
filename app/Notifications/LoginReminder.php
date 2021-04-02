@@ -11,14 +11,16 @@ class LoginReminder extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    private $name;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($name)
     {
-        
+        $this->name = $name;
     }
 
     /**
@@ -41,7 +43,7 @@ class LoginReminder extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('We miss you!')
+            ->greeting('We miss you '. $this->name .'!')
             ->line("We noticed that you haven't logged in for the past 30 days.")
             ->line('Login now to see our latest offers!')
             ->action('Login', url('/'));

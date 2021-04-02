@@ -1,7 +1,16 @@
 @extends('layout.main')
 
 @section('title', 'Hotel Transylvania | Confirm Payment')
+@if(Auth::guard('client')->user()->approval_status==="pending" || Auth::guard('client')->user()->approval_status==="denied")
 
+
+@section('content-title', 'My Reservations')
+@section('content')
+
+<h1>Your request is still pending, Stay tuned!</h1>
+
+@endsection
+@else
 @section('content-title', 'Confirm Payment')
 
 @section('header-styles')
@@ -171,3 +180,4 @@ $(function() {
 });
 </script>
 @endsection
+@endif

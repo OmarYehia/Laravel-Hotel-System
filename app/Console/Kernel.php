@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
 
                 // If the client hasn't loggedin in 30 days
                 if ($difference >= 30) {
-                    $client->notify(new LoginReminder());
+                    $client->notify(new LoginReminder($client->name));
                 }
             }
         })->daily();
