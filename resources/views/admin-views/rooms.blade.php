@@ -196,6 +196,7 @@
           },
           error: function (data) {
               console.log('Error:', data);
+              alert(data.responseText);
               $('#saveBtn').html('Save Changes');
           }
       });
