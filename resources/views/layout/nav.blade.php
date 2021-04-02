@@ -113,7 +113,7 @@
 
                 @if(Auth::guard('user')->user()->can('approve clients'))
                 <li class="nav-item mb-2">
-                    <a href="/" class="nav-link"><i class="nav-icon fas fa-user-friends"></i> Approve clients</a>
+                    <a href="{{ route('clients.proposals')}}" class="nav-link"><i class="nav-icon fas fa-user-friends"></i> Approve clients</a>
                 </li>
                 @endif
 

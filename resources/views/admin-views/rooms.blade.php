@@ -12,9 +12,6 @@
 @endsection
 @section('content')
 
-<div class="container" style="justify-content: center">
-    <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Room</a>
-</div>
     <table id="table" class="display table-bordered data-table">
         <thead>
             <tr>
@@ -31,6 +28,9 @@
             </tr>
         </thead>
     </table>
+    <div class="container" style="justify-content: center">
+        <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Room</a>
+    </div>
     <div class="modal fade" id="ajaxModel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

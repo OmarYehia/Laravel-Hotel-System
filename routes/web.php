@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\FloorController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GoogleClientController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::guard('client')->check()) {
-        return view('client-views.reservations');
+        return view('client-views.availablerooms');
     } elseif (Auth::guard('user')->check()) {
         return route('admin.home');
     }
@@ -66,9 +67,13 @@ Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('
 Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
 
 
-
+//Managing rooms and floors
 Route::get('/manage-floors', [managingController::class, 'floors'])->name('manage.floors');
 Route::get('/manage-rooms', [managingController::class, 'rooms'])->name('manage.rooms');
+
+//Approving clients
+Route::get('/clients-proposals', [ClientController::class, 'NotApproved'])->name('clients.proposals');
+
 
 
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
