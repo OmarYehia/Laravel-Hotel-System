@@ -22,6 +22,9 @@ class AvailableRoomAjaxController extends Controller
             $data = RoomResource::collection($data);
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('room_price', function ($row) {
+                    return ($row['room_price'] / 100);
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row['id'].'" data-original-title="Book" class="edit btn btn-primary btn-sm bookRoom">Book</a>';
    

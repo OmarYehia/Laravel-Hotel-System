@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\ClientController;
-use App\Http\Controllers\Api\FloorController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GoogleClientController;
 use App\Http\Controllers\Auth\LoginController;
@@ -31,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::guard('client')->check()) {
-        return view('client-views.availablerooms');
+        return view('client-views.home');
     } elseif (Auth::guard('user')->check()) {
         return route('admin.home');
     }
@@ -51,7 +50,6 @@ Route::get('/auth/google/callback', [GoogleClientController::class, 'handleProvi
 
 Route::get('/logout/client', [LogoutController::class,'logout'])->name('logout.client');
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
-// Route::get('/home', [FloorController::class,'index'])->name('index');
 
 Route::get('/forget-password', [ForgotPasswordController::class,'getEmail'])->name('forget-password');
 Route::post('/forget-password', [ForgotPasswordController::class,'postEmail'])->name('forget-password');

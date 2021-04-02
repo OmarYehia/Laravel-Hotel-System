@@ -1,32 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Laravel 7 - Integrate Stripe Payment Gateway Example</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <style type="text/css">
-        .container {
-            margin-top: 40px;
-        }
-        .panel-heading {
-        display: inline;
-        font-weight: bold;
-        }
-        .flex-table {
-            display: table;
-        }
-        .display-tr {
-            display: table-row;
-        }
-        .display-td {
-            display: table-cell;
-            vertical-align: middle;
-            width: 55%;
-        }
-    </style>
-</head>
-<body>
-  
+@extends('layout.main')
+
+@section('title', 'Hotel Transylvania | Confirm Payment')
+
+@section('content-title', 'Confirm Payment')
+
+@section('header-styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+<style type="text/css">
+    /* .container {
+        margin-top: 40px;
+    } */
+    .panel-heading {
+    display: inline;
+    font-weight: bold;
+    }
+    .flex-table {
+        display: table;
+    }
+    .display-tr {
+        display: table-row;
+    }
+    .display-td {
+        display: table-cell;
+        vertical-align: middle;
+        width: 55%;
+    }
+</style>
+@endsection
+@section('bread-crumps')
+<ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item active">Checkout</li>
+</ol>
+@endsection
+@section('content')
 <div class="container">  
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -92,7 +99,7 @@
   
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-danger btn-lg btn-block" type="submit">Pay Now (₹100)</button>
+                                <button class="btn btn-danger btn-lg btn-block" type="submit">Pay Now {{ $request->all()['price'] }} $</button>
                             </div>
                         </div>
                           
@@ -102,32 +109,32 @@
         </div>
     </div>
 </div>
-  
-</body>
-  
+@endsection
+
+@section('script')
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   
 <script type="text/javascript">
 $(function() {
-    var $form         = $(".validation");
-  $('form.validation').bind('submit', function(e) {
-    var $form         = $(".validation"),
-        inputVal = ['input[type=email]', 'input[type=password]',
-                         'input[type=text]', 'input[type=file]',
-                         'textarea'].join(', '),
-        $inputs       = $form.find('.required').find(inputVal),
-        $errorStatus = $form.find('div.error'),
-        valid         = true;
-        $errorStatus.addClass('hide');
- 
-        $('.has-error').removeClass('has-error');
-    $inputs.each(function(i, el) {
-      var $input = $(el);
-      if ($input.val() === '') {
-        $input.parent().addClass('has-error');
-        $errorStatus.removeClass('hide');
-        e.preventDefault();
-      }
+    var $form = $(".validation");
+    $('form.validation').bind('submit', function(e) {
+        var $form         = $(".validation"),
+            inputVal = ['input[type=email]', 'input[type=password]',
+                            'input[type=text]', 'input[type=file]',
+                            'textarea'].join(', '),
+            $inputs       = $form.find('.required').find(inputVal),
+            $errorStatus = $form.find('div.error'),
+            valid         = true;
+            $errorStatus.addClass('hide');
+    
+            $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+        var $input = $(el);
+        if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorStatus.removeClass('hide');
+            e.preventDefault();
+        }
     });
   
     if (!$form.data('cc-on-file')) {
@@ -153,10 +160,14 @@ $(function() {
             var token = response['id'];
             $form.find('input[type=text]').empty();
             $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            $form.append("<input type='hidden' name='client_id' value='{{ Auth::guard('client')->user()->id }}'/>");
+            $form.append("<input type='hidden' name='room_id' value='{{ $request->all()['room_id'] }}'/>");
+            $form.append("<input type='hidden' name='paid_price' value='{{ $request->all()['price'] }}'/>");
+            $form.append("<input type='hidden' name='accompany_number' value='{{ $request->all()['accompany_number'] }}'/>");
             $form.get(0).submit();
         }
     }
   
 });
 </script>
-</html>
+@endsection

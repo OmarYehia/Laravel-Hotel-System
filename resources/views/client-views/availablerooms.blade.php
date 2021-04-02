@@ -45,14 +45,16 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-6 control-label">Accompany number</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="accompany_number" name="accompany_number" placeholder="Enter Capacity" value="{{ $request->all()['capacity'] }}" maxlength="50" required="">
+                            <input type="text" class="form-control" id="accompany_number" name="accompany_number" value="{{ $request->all()['capacity'] }}" maxlength="50" disabled>
+                            <input type="hidden" name="accompany_number" value="{{ $request->all()['capacity'] }}">
                         </div>
                     </div>
      
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Price</label>
                         <div class="col-sm-12">
-                        <input type="text" class="form-control" id="price" name="price"  maxlength="50" value="John" disabled >
+                            <input type="text" class="form-control" id="price" name="price"  maxlength="50" value="John" disabled >
+                            <input type="hidden" name="price" id="hid-price">
                         </div>
                     </div>
       
@@ -97,12 +99,12 @@ $(function () {
     $('body').on('click', '.bookRoom', function () {
       var room_id = $(this).data('id');
       $.get("api/rooms" +'/' + room_id , function (data) {
-          console.log(data.data.room_price);
           $('#modelHeading').html("Book the Room");
           $('#saveBtn').val("edit-user");
           $('#ajaxModel').modal('show');
           $('#room_id').val(data.data.id);
-          $('#price').val(data.data.room_price);
+          $('#price').val(data.data.room_price/100);
+          $('#hid-price').val(data.data.room_price/100);
       })
    })
    
