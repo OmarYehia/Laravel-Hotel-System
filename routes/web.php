@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\FloorController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GoogleClientController;
@@ -7,12 +8,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\AvailableRoomAjaxController;
 use App\Http\Controllers\ManagerAjaxController;
 use App\Http\Controllers\managingController;
-use App\Http\Controllers\ReceptionistController;
+use App\Http\Controllers\ReceptionistAjaxController;
 use App\Http\Controllers\StaffLogoutController;
 use App\Http\Controllers\StaffRegisterController;
-use App\Http\Controllers\AvailableRoomAjaxController;
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,12 +68,14 @@ Route::get('/admin/register', [StaffRegisterController::class, 'index'])->name('
 Route::post('/admin/register', [StaffRegisterController::class, 'store'])->name('admin.store')->middleware('auth:user');
 
 
-
+//Managing rooms and floors
 Route::get('/manage-floors', [managingController::class, 'floors'])->name('manage.floors');
 Route::get('/manage-rooms', [managingController::class, 'rooms'])->name('manage.rooms');
 
+//Approving clients
+Route::get('/clients-proposals', [ClientController::class, 'NotApproved'])->name('clients.proposals');
 
-Route::get('/manage-receptionists', [ReceptionistController::class, 'index'])->name('manage.receptionists');
+
 
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 
@@ -85,3 +88,17 @@ Route::post('/stripe-payment', [StripeController::class, 'handlePost'])->name('s
 
 // Manager Routes
 Route::get('/managers', [ManagerAjaxController::class, 'index'])->name('managers.index');
+Route::get('/managers/{managerID}', [ManagerAjaxController::class, 'edit']);
+Route::put('/managers/{managerID}', [ManagerAjaxController::class, 'update']);
+Route::delete('/managers/{managerID}', [ManagerAjaxController::class, 'destroy']);
+
+// Receptionists Routes
+Route::get('/receptionists', [ReceptionistAjaxController::class, 'index'])->name('receptionists.index');
+Route::get('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'edit']);
+Route::put('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'update']);
+Route::delete('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'destroy']);
+
+
+
+
+Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');

@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClientController extends Controller
 {
@@ -16,6 +17,24 @@ class ClientController extends Controller
     {
         $res = Client::get();
         dd($res);
+    }
+
+    public function NotApproved(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Client::where('approval_status','pending')->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" clientId="'.$row->id.'" data-id="'.$row->id.'" data-email="'.$row->email.'" data-clientName="'.$row->name.'"  data-original-title="Approve" class="edit btn btn-primary btn-sm approveClient actionBtn">Approve</a>';
+                    $btn = $btn.'<a href="javascript:void(0)" clientId="'.$row->id.'" data-id="'.$row->id.'" data-email="'.$row->email.'" data-clientName="'.$row->name.'" data-original-title="Decline" class="edit btn btn-danger btn-sm declineClient actionBtn">Decline</a>';
+     
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin-views.clients');    
     }
 
     public function store(StoreClientRequest $request)

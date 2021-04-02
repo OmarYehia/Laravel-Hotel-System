@@ -12,10 +12,7 @@
 @endsection
 @section('content')
 
-<div class="container" style="justify-content: center">
-    <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Floor</a>
-</div>
-    <table id="table" class="display data-table">
+    <table id="table" class="display table-bordered data-table">
         <thead>
             <tr>
                 <th>#</th>
@@ -31,6 +28,9 @@
             </tr>
         </thead>
     </table>
+    <div class="container" style="justify-content: center">
+        <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Room</a>
+    </div>
     <div class="modal fade" id="ajaxModel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -147,6 +147,7 @@
             });
             $('#createNewProduct').click(function () {
                 const currentUserID = "{{ Auth::guard('user')->user()->id }}";
+                $('#modelHeading').html("Create New Room");
                 $("#updateBtn").hide();
                 $('#saveBtn').show();
                 $('#saveBtn').val("create-product");
@@ -156,13 +157,12 @@
             });
             
     $('body').on('click', '.editProduct', function () {
-      var room_id = $(this).data('id');
+      const room_id = $(this).data('id');
       $("#updateBtn").show();
       $('#saveBtn').hide();
       $('#room_id').val($(this).data('id'));
       $.get("api/rooms" +'/' + room_id, function (data) {
-          console.log(data);
-          $('#modelHeading').html("Edit Product");
+          $('#modelHeading').html("Edit Room Data");
           $('#saveBtn').val("edit-floor");
           $('#ajaxModel').modal('show');
           $('#floor_name').val(data.name);
@@ -183,7 +183,7 @@
      
               $('#productForm').trigger("reset");
               $('#ajaxModel').modal('hide');
-              table.draw();
+              location.reload();
          
           },
           error: function (data) {
@@ -207,7 +207,7 @@
      
               $('#productForm').trigger("reset");
               $('#ajaxModel').modal('hide');
-              table.draw();
+              location.reload();
          
           },
           error: function (data) {
@@ -226,7 +226,14 @@
             type: "DELETE",
             url: "api/rooms"+'/'+room_id,
             success: function (data) {
-                table.draw();
+                if (data.message === "Room is reserved Cannot be deleted!")
+                {
+                    alert("Room is Reserved, Cannot delete it!");
+                }else{
+                location.reload();
+                alert("Room is Deleted Successfully!");
+
+                }
             },
             error: function (data) {
                 console.log('Error:', data);

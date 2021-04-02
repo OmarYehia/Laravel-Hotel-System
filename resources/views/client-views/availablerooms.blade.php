@@ -1,5 +1,16 @@
 @extends('layout.main')
 
+@if(Auth::guard('client')->user()->approval_status==="pending")
+@section('title', 'Hotel Transylvania')
+
+@section('content-title', 'My Reservations')
+@section('content')
+
+<h1>Your request is still pending, Stay tuned!</h1>
+
+@endsection
+@else
+    
 @section('title', 'Hotel Transylvania')
 
 @section('content-title', 'My Reservations')
@@ -121,3 +132,4 @@ $(function () {
   });
 </script>
 @endsection
+@endif

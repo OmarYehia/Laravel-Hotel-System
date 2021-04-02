@@ -29,7 +29,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     //users
     Route::post("/users", [UserController::class, 'store']);
     Route::get("/users/restore/all", [UserController::class, 'retrieve']);
-    Route::get("/users/approve/{client}", [UserController::class, 'approve']);
+    Route::post("/users/approve/{client}", [UserController::class, 'approve'])->name('approve.clients');
+    Route::post("/users/decline/{client}", [UserController::class, 'decline'])->name('decline.clients');
     Route::get("/users/{userid}", [UserController::class, 'show']);
     Route::put("/users/{userid}", [UserController::class, 'update']);
     Route::delete("/users/{userid}", [UserController::class, 'destroy']);

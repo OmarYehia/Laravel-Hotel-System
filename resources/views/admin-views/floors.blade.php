@@ -12,10 +12,7 @@
 @endsection
 @section('content')
 
-<div class="container" style="justify-content: center">
-    <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Floor</a>
-</div>
-    <table id="table" class="display data-table">
+    <table id="table" class="display table-bordered data-table">
         <thead>
             <tr>
                 <th>#</th>
@@ -30,6 +27,9 @@
             </tr>
         </thead>
     </table>
+    <div class="container" style="justify-content: center">
+        <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Floor</a>
+    </div>
     
 <div class="modal fade" id="ajaxModel" aria-hidden="true">
     <div class="modal-dialog">
@@ -131,14 +131,13 @@
             });
             
     $('body').on('click', '.editProduct', function () {
-      var floor_id = $(this).data('id');
+      const floor_id = $(this).data('id');
       $("#updateBtn").show();
       $('#saveBtn').hide();
       $('#floor_id').val($(this).data('id'));
       $('#created_by').val($(this).attr('created-by'));
       $.get("api/floors" +'/' + floor_id, function (data) {
-          console.log(data);
-          $('#modelHeading').html("Edit Product");
+          $('#modelHeading').html("Edit Floor Data");
           $('#saveBtn').val("edit-floor");
           $('#ajaxModel').modal('show');
           $('#floor_name').val(data.name);
@@ -159,7 +158,7 @@
      
               $('#productForm').trigger("reset");
               $('#ajaxModel').modal('hide');
-              table.draw();
+              location.reload();
          
           },
           error: function (data) {
@@ -183,7 +182,7 @@
      
               $('#productForm').trigger("reset");
               $('#ajaxModel').modal('hide');
-              table.draw();
+              location.reload();
          
           },
           error: function (data) {
@@ -202,7 +201,14 @@
             type: "DELETE",
             url: "api/floors"+'/'+product_id+'/delete',
             success: function (data) {
-                table.draw();
+                if (data.message === "There are rooms associated with this floor, can not delete it!")
+                {
+                    alert("Floor is not empty, couldnt delete it!");
+                }else{
+                location.reload();
+                alert("Floor is Deleted Successfully!");
+
+                }
             },
             error: function (data) {
                 console.log('Error:', data);

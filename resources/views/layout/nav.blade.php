@@ -95,7 +95,7 @@
                 @endif
                 @if(Auth::guard('user')->user()->can('manage receptionists'))
                 <li class="nav-item mb-2">
-                    <a href="{{ route('manage.receptionists') }}" class="nav-link"><i class="nav-icon fas fa-glasses"></i> Manage receptionists</a>
+                    <a href="{{ route('receptionists.index') }}" class="nav-link"><i class="nav-icon fas fa-glasses"></i> Manage receptionists</a>
                 </li>
                 @endif
 
@@ -113,7 +113,7 @@
 
                 @if(Auth::guard('user')->user()->can('approve clients'))
                 <li class="nav-item mb-2">
-                    <a href="/" class="nav-link"><i class="nav-icon fas fa-user-friends"></i> Approve clients</a>
+                    <a href="{{ route('clients.proposals')}}" class="nav-link"><i class="nav-icon fas fa-user-friends"></i> Approve clients</a>
                 </li>
                 @endif
 

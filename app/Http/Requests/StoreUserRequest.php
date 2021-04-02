@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreUserRequest extends FormRequest
 {
@@ -23,12 +24,18 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required',
-            'email' => 'required|unique:users|email',
+            'email' => 'required|email|unique:users,email,'.$this->id,
             'password' => 'required|min:6',
-            'national_id' => 'unique:users',
+            'national_id' => 'integer|unique:users,national_id,'.$this->id,
         ];
+
+        if (Auth::guard('user')->user()->can('manage managers') or Auth::guard('user')->user()->can('manage receptionists')) {
+            $rules['password'] = '';
+        }
+
+        return $rules;
     }
 
     public function messages()

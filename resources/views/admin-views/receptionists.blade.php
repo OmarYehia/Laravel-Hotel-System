@@ -1,4 +1,4 @@
-@if(Auth::guard("user")->user()->can("manage managers"))
+@if(Auth::guard("user")->user()->can("manage receptionists"))
 @extends('layout.main')
 
 @section('title', 'Hotel Transylvania')
@@ -6,7 +6,7 @@
 @section('bread-crumps')
 <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-    <li class="breadcrumb-item active">Manager List</li>
+    <li class="breadcrumb-item active">Receptionist List</li>
 </ol>
 @endsection
 
@@ -37,7 +37,7 @@
                 <div class="errors text-danger mb-2">
                         
                 </div>
-                <form id="managerForm" name="managerForm" class="form-horizontal">
+                <form id="receptionistForm" name="receptionistForm" class="form-horizontal">
                    <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="name" class="col-5 control-label">Name</label>
@@ -83,7 +83,7 @@ $(function() {
     });
 
     var table = $('#data-table').DataTable({
-        ajax: "{{ route('managers.index') }}",
+        ajax: "{{ route('receptionists.index') }}",
         dataSrc: 'data',
         columns: [{
                 data: 'id'
@@ -107,7 +107,7 @@ $(function() {
             },
         ],
         // This condition to show the buttons for only the person who created user or if he's a super admin
-         // Conditions applies to only managers
+        @if(!Auth::guard("user")->user()->can("manage managers"))// Conditions applies to only managers
         initComplete: function(settings, json) {
             const currentUserID = "{{ Auth::guard('user')->user()->id }}";
             const actionBtns = Array.from(document.getElementsByClassName("actionBtn"))
@@ -118,12 +118,14 @@ $(function() {
                 }
             })
         }
+        @endif
     });
-        
-    $('body').on('click', '.editManager', function() {
-    const managerID = $(this).data('id');
-    $.get(`/managers/${managerID}`, function(data) {
-        $('#modelHeading').html("Edit Manager Data");
+    
+         
+    $('body').on('click', '.editReceptionist', function() {
+    const receptionistID = $(this).data('id');
+    $.get(`/receptionists/${receptionistID}`, function(data) {
+        $('#modelHeading').html("Edit Receptionist Data");
         $('#saveBtn').val("edit-user");
         $('#ajaxModel').modal('show');
         $('#id').val(data.data.id);
@@ -137,16 +139,17 @@ $(function() {
         e.preventDefault();
         $(this).html('Sending..');
         $.ajax({
-            data: $('#managerForm').serialize(),
-            url: `/managers/${$('#id').val()}`,
+            data: $('#receptionistForm').serialize(),
+            url: `/receptionists/${$('#id').val()}`,
             type: "PUT",
             dataType: 'json',
             success: function(data) {
-                $('#managerForm').trigger("reset");
+                $('#receptionistForm').trigger("reset");
                 $('#ajaxModel').modal('hide');
                 location.reload();
             },
             error: function(data) {
+                console.log(data);
                 for (const [key, value] of Object.entries(data.responseJSON.errors)) {
                     $(".errors").append(`${value}<br>`);
                 }
@@ -155,13 +158,13 @@ $(function() {
         });
     });
                 
-    $('body').on('click', '.deleteManager', function() {
-        const managerID = $(this).data("id");
+    $('body').on('click', '.deleteReceptionist', function() {
+        const receptionistID = $(this).data("id");
         const agree = confirm("Are You sure want to delete ?");
         if(agree){
             $.ajax({
                 type: "DELETE",
-                url: `/managers/${managerID}`,
+                url: `/receptionists/${receptionistID}`,
                 success: function(data) {
                     location.reload();
                 },
@@ -171,8 +174,7 @@ $(function() {
                 }
             });
         }
-    });
-                    
+    });               
 });
 </script>
 @endsection

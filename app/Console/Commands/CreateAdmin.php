@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use \App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 
 class CreateAdmin extends Command
 {
@@ -52,8 +53,9 @@ class CreateAdmin extends Command
             $user = User::factory()->create([
                 'name' => 'Super Admin',
                 'email' => $this->option('name'),
-                'password' => $this->option('password'),
+                'password' => Hash::make($this->option('password')),
                 'avatar_image' => '/',
+                'role' => 'admin',
                 'created_by' => 1,
             ]);
             $this->info('Admin created successfully!');

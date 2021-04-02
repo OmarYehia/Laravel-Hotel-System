@@ -9,22 +9,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class ManagerAjaxController extends Controller
+class ReceptionistAjaxController extends Controller
 {
     public function index(Request $request)
     {
-        if (!Auth::guard("user")->user()->can("manage managers")) {
+        if (!Auth::guard("user")->user()->can("manage receptionists")) {
             abort(403);
         }
 
         if ($request->ajax()) {
-            $data = User::where("role", 'manager')->latest()->get();
+            $data = User::where("role", '=', 'receptionist')->latest()->get();
             $data = UserResource::collection($data);
             $res = Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Edit" class="edit btn btn-primary btn-sm editManager actionBtn">Edit</a>';
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-danger btn-sm deleteManager actionBtn">Delete</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Edit" class="edit btn btn-primary btn-sm editReceptionist actionBtn">Edit</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-danger btn-sm deleteReceptionist actionBtn">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -32,7 +32,7 @@ class ManagerAjaxController extends Controller
             return $res;
         }
 
-        return view('admin-views.managers');
+        return view('admin-views.receptionists');
     }
 
     public function edit($userID)
