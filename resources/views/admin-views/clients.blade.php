@@ -7,7 +7,7 @@
 @section('bread-crumps')
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="/home">Home</a></li>
-        <li class="breadcrumb-item active">My Reservations</li>
+        <li class="breadcrumb-item active">Unapproved Clients</li>
     </ol>
 @endsection
 @section('content')
@@ -19,12 +19,12 @@
             </form>
             <tr>
                 <th>#</th>
-                <th>client id</th>
-                <th>client name</th>
-                <th>country</th>
-                <th>gender</th>
-                <th>phone number</th>
-                <th>actions</th>
+                <th>Client ID</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Gender</th>
+                <th>Phone number</th>
+                <th>Actions</th>
             </tr>
         </thead>
     </table>

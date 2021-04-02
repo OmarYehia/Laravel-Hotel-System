@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\ApprovedNotification;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -56,30 +56,23 @@ class UserController extends Controller
 
     public function approve(Request $request, Client $client)
     {
-        Client::where('id',$client->id)->update(array(
+        Client::where('id', $client->id)->update([
             'approved_by'=>$request->all()['approved_by'],
-            'approval_status'=>$request->all()['approval_status']
-        ));
+            'approval_status'=>$request->all()['approval_status'],
+        ]);
+
+        Mail::to($client->email)
+            ->queue(new ApprovedNotification($client->name));
+
         return response()->json(['message' => 'Client propsal approved!']);
-        // if (Client::where('approval_status', 'pending')->where('id', $client)->exists()) {
-        //     $affected = Client::where('approval_status', 'pending')->where('id', $client)->update(['approval_status' => 'approved']);
-        //     return response()->json(['message' => 'Client propsal approved!']);
-        // } else {
-        //     return response()->json(['message' => 'Client doesnt exist!']);
-        // }
     }
+
     public function decline(Request $request, Client $client)
     {
-        Client::where('id',$client->id)->update(array(
+        Client::where('id', $client->id)->update([
             'approved_by'=>$request->all()['approved_by'],
-            'approval_status'=>$request->all()['approval_status']
-        ));
+            'approval_status'=>$request->all()['approval_status'],
+        ]);
         return response()->json(['message' => 'Client propsal declined!']);
-        // if (Client::where('approval_status', 'pending')->where('id', $client)->exists()) {
-        //     $affected = Client::where('approval_status', 'pending')->where('id', $client)->update(['approval_status' => 'denied']);
-        //     return response()->json(['message' => 'Client propsal denied!']);
-        // } else {
-        //     return response()->json(['message' => 'Client doesnt exist!']);
-        // }
     }
 }

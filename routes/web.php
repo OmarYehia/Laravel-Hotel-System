@@ -103,6 +103,4 @@ Route::delete('/receptionists/{receptionistID}', [ReceptionistAjaxController::cl
 
 Route::get('/receptionists/clientsreservations/{receptionistID}', [ReceptionistAjaxController::class, 'getClientsReservations'])->name('reservations');
 
-
-
 Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');

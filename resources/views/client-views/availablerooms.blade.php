@@ -1,7 +1,7 @@
 @extends('layout.main')
 
-@if(Auth::guard('client')->user()->approval_status==="pending" || Auth::guard('client')->user()->approval_status==="denied")
 @section('title', 'Hotel Transylvania')
+@if(Auth::guard('client')->user()->approval_status==="pending" || Auth::guard('client')->user()->approval_status==="denied")
 
 @section('content-title', 'My Reservations')
 @section('content')
