@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Client;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,5 +53,28 @@ class ReceptionistAjaxController extends Controller
     public function destroy($userID)
     {
         $user = User::where('id', $userID)->delete();
+    }
+
+    
+    public function getClientsReservations(Request $request,$user)
+    {
+        if ($request->ajax()) {
+            $client = Client::where("approved_by",$user)->latest()->get();
+                $data = Reservation::where('client_id',$client[0]->id)->get();
+                $res = Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('client name', function ($row) {
+                        $user = Client::where("id",$row->id)->latest()->get();
+                        return $user[0]->name;
+                    })
+                    ->addColumn('client phone number', function ($row) {
+                        $user = Client::where("id",$row->id)->latest()->get();
+                        return $user[0]->phone_number;
+                    })
+                    ->make(true);
+                return $res;
+        }
+
+        return view('admin-views.clientsReservations');
     }
 }

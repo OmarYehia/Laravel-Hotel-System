@@ -111,6 +111,14 @@
                 </li>
                 @endif
 
+                
+                @if(Auth::guard('user')->user()->role=="receptionist")
+                <li class="nav-item mb-2">
+                    <a href="{{ route('reservations',['receptionistID' => Auth::guard('user')->user()->id]) }}" class="nav-link"><i class="nav-icon fas fa-person-booth"></i> View Clients reservations</a>
+                </li>
+                @endif
+
+
                 @if(Auth::guard('user')->user()->can('approve clients'))
                 <li class="nav-item mb-2">
                     <a href="{{ route('clients.proposals')}}" class="nav-link"><i class="nav-icon fas fa-user-friends"></i> Approve clients</a>

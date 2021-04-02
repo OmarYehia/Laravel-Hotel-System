@@ -37,4 +37,8 @@ class ReservationController extends Controller
         $reservation->update($request->all());
         return response()->json(['message' => 'Updated successfully!']);
     }
+
+    public function getClientsReservations(){
+        
+    }
 }

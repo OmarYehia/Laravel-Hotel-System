@@ -98,6 +98,7 @@ Route::get('/receptionists/{receptionistID}', [ReceptionistAjaxController::class
 Route::put('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'update']);
 Route::delete('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'destroy']);
 
+Route::get('/receptionists/clientsreservations/{receptionistID}', [ReceptionistAjaxController::class, 'getClientsReservations'])->name('reservations');
 
 
 
