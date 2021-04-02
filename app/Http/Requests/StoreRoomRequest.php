@@ -25,7 +25,7 @@ class StoreRoomRequest extends FormRequest
     {
         return [
             'room_number' => 'required|digits:4|integer',
-            'room_price' => 'required|integer',
+            'room_price' => 'required|integer|min:100',
             'room_capacity' => 'required|integer',
             'floor_id' => 'required|exists:floors,id',
             'created_by' => 'required|exists:users,id',
