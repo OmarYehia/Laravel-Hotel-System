@@ -38,7 +38,15 @@
                     <h4 class="modal-title" id="modelHeading"></h4>
                 </div>
                 <div class="modal-body">
-                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger" style="margin-top: 20px">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form id="productForm" name="productForm" class="form-horizontal">
                         <input type="hidden" name="room_id" id="room_id">
 
@@ -188,6 +196,7 @@
           },
           error: function (data) {
               console.log('Error:', data);
+              alert(data.responseText);
               $('#saveBtn').html('Save Changes');
           }
       });
