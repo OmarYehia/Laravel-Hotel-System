@@ -16,15 +16,15 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>room number</th>
-                <th>room price</th>
-                <th>room capacity</th>
-                <th>floor id</th>
+                <th>Room Number</th>
+                <th>Room Price</th>
+                <th>Room Capacity</th>
+                <th>Floor Id</th>
                 @if(Auth::guard("user")->user()->can("manage managers"))
-                <th>manager name</th>
+                <th>Manager Name</th>
                 @endif
-                <th>is reserved</th>
-                <th>actions</th>
+                <th>Reserved</th>
+                <th>Actions</th>
             </tr>
         </thead>
     </table>

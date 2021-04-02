@@ -16,12 +16,12 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>floor id</th>
-                <th>floor name</th>
-                <th>created by</th>
-                <th>actions</th>
+                <th>Floor Id</th>
+                <th>Floor Name</th>
+                <th>Created By</th>
+                <th>Actions</th>
                 @if(Auth::guard("user")->user()->can("manage managers"))
-                <th>Manager name</th>
+                <th>Manager Name</th>
                 @endif
 
             </tr>
