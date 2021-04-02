@@ -19,8 +19,8 @@ class ReservationResource extends JsonResource
             'client' => $this->client_id,
             'paid_price' => $this->paid_price,
             'accompany_number' => $this->accompany_number,
-            'reservation_date' => $this->reservation_date,
-            'room' => new \App\Http\Resources\RoomResource(Room::find($this->room_id)),
+            'reservation_date' => $this->created_at,
+            'room' => new \App\Http\Resources\RoomResource(Room::with('floor')->where('id', $this->room_id)->first()),
         ];
     }
 }

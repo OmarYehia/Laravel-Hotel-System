@@ -137,7 +137,7 @@
                     <a href="/make-a-reservation" class="nav-link"><i class="nav-icon fas fa-bed"></i>Make a reservation</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="{{route ('ajaxavailablerooms.index') }}" class="nav-link"><i class="nav-icon fas fa-bed"></i>View my reservations</a>
+                    <a href="{{route ('client.reservations') }}" class="nav-link"><i class="nav-icon fas fa-bed"></i>View my reservations</a>
                 </li>
                 @endif
 

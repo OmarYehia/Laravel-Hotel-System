@@ -58,6 +58,6 @@ class StripeController extends Controller
   
         Session::flash('success', 'Payment has been successfully processed.');
           
-        return redirect()->route('index');
+        return redirect()->route('client.reservations');
     }
 }

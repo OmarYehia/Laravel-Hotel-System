@@ -10,6 +10,6 @@
 
 @section('content')
 <div class="text-center">
-    <h1><b>Should be replaced with my reservations</b></h1>
+    <h1><b>Welcome to Hotel Transylvania</b></h1>
 </div>
 @endsection

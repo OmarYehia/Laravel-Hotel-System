@@ -30,11 +30,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::guard('client')->check()) {
-        return view('client-views.home');
+        return redirect()->route('client-home');
     } elseif (Auth::guard('user')->check()) {
         return route('admin.home');
     }
 })->name('index')->middleware('auth:client');
+Route::get('/home', function () {
+    return view('client-views.home');
+})->name('client-home');
+
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store'])->name('register');
@@ -80,6 +84,7 @@ Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 // Client Reservations
 Route::get('/available-rooms', [AvailableRoomAjaxController::class, 'index'])->name('ajaxavailablerooms.index');
 Route::get('/make-a-reservation', [AvailableRoomAjaxController::class, 'capacityForm']);
+Route::get('/my-reservations', [AvailableRoomAjaxController::class, 'getReservations'])->name('client.reservations');
 
 Route::get('/stripe-payment', [StripeController::class, 'handleGet']);
 Route::post('/stripe-payment', [StripeController::class, 'handlePost'])->name('stripe.payment');
