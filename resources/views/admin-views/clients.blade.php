@@ -11,6 +11,11 @@
     </ol>
 @endsection
 @section('content')
+
+@if(Auth::guard('user')->user()->banned_at)
+    <h1>YOU ARE BANNED, PLEASE CONTACT ADMIN</h1>
+    @endsection
+@else
     <table id="table" class="display table-bordered data-table">
         <thead>
             <form id="form" name="form">
@@ -19,16 +24,17 @@
             </form>
             <tr>
                 <th>#</th>
-                <th>client id</th>
-                <th>client name</th>
-                <th>country</th>
-                <th>gender</th>
-                <th>phone number</th>
-                <th>actions</th>
+                <th>Client Id</th>
+                <th>Client Name</th>
+                <th>Country</th>
+                <th>Gender</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
             </tr>
         </thead>
     </table>
 @endsection
+@endif
 
 @section('script')
     <script type="text/javascript">

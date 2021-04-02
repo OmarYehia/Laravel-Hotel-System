@@ -5,9 +5,9 @@
 
 @section('content-title', 'My Reservations')
 @section('content')
-
-<h1>Your request is still pending, Stay tuned!</h1>
-
+<div class="text-center">
+    <h1>Your request is still pending, Stay tuned!</h1>
+</div>
 @endsection
 @else
     

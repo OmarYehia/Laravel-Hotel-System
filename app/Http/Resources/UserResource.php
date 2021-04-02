@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'national_id' => $this->national_id,
+            'banned_at' => $this->banned_at,
             'created_by' => [
                 'id' => ($createdBy->id) ? ($createdBy->id) : null,
                 'name' => ($createdBy->name) ? ($createdBy->name) : null,

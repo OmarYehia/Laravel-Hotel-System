@@ -12,6 +12,10 @@
 
 @section('content')
 
+@if(Auth::guard('user')->user()->banned_at)
+    <h1>YOU ARE BANNED, PLEASE CONTACT ADMIN</h1>
+    @endsection
+@else
 <table class="table table-bordered data-table" id="data-table">
     <thead>
         <tr>
@@ -71,6 +75,7 @@
 </div>
 
 @endsection
+@endif
 
 @section('script')
 <script>
