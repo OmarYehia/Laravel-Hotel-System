@@ -13,6 +13,7 @@ use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\StaffLogoutController;
 use App\Http\Controllers\StaffRegisterController;
 use App\Http\Controllers\AvailableRoomAjaxController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::guard('client')->check()) {
-        return view('client-views.reservations');
+        return view('client-views.availablerooms');
     } elseif (Auth::guard('user')->check()) {
         return route('admin.home');
     }
@@ -77,5 +78,10 @@ Route::get('/logout', [StaffLogoutController::class, 'logout'])->name('logout');
 
 
 Route::get('/available-rooms', [AvailableRoomAjaxController::class, 'index'])->name('ajaxavailablerooms.index');
+
+
+Route::get('/stripe-payment', [StripeController::class, 'handleGet']);
+Route::post('/stripe-payment', [StripeController::class, 'handlePost'])->name('stripe.payment');
+
 // Manager Routes
 Route::get('/managers', [ManagerAjaxController::class, 'index'])->name('managers.index');
