@@ -50,7 +50,7 @@
 
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{Auth::guard('client')->user()->name}}</a>
+                <a href="{{ '/clients/' . Auth::guard('client')->user()->id }}" class="d-block">{{Auth::guard('client')->user()->name}}</a>
 
             </div>
             <div class="info ml-auto">

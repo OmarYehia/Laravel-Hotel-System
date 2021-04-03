@@ -27,10 +27,10 @@ class StoreClientRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:clients',
             'phone_number' => 'required',
-            'counrty' => 'requird',
+            'counrty' => 'required',
             'gender' => 'required',
             'password' => 'required|confirmed|min:6',
-            'avatar_image' =>  'image|mimes:jpeg,jpg|max:2048'
+            'avatar_image' =>  'image|mimes:jpeg,jpg|max:2048',
         ];
     }
 
@@ -43,7 +43,7 @@ class StoreClientRequest extends FormRequest
             'email.email' => 'Please neter a valid email address',
             'password.required' => 'Please enter the password',
             'password.min' => 'Password should be at least 6 characters in length',
-            'country.required' => 'Please choose your country'
+            'country.required' => 'Please choose your country',
         ];
     }
 }
