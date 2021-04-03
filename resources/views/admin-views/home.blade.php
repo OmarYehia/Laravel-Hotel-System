@@ -17,5 +17,4 @@
         <h1><b>Welcome to your Administration panel</b></h1>
     </div>
     @endsection
-}
 @endif

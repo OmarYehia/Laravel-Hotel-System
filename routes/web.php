@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// General routes
 Route::get('/', function () {
     if (Auth::guard('client')->check()) {
         return redirect()->route('client-home');
