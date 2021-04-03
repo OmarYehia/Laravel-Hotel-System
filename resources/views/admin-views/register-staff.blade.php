@@ -10,6 +10,11 @@
 @endsection
 
 @section('content')
+
+@if(Auth::guard('user')->user()->banned_at)
+    <h1>YOU ARE BANNED, PLEASE CONTACT ADMIN</h1>
+    @endsection
+@else
 <div class="">
     <form action="{{ route('admin.store') }}" method="POST" class="row justify-content-center" id="form">
         @csrf
@@ -73,3 +78,4 @@
     </form>
 </div>
 @endsection
+@endif

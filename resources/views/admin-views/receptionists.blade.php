@@ -12,6 +12,10 @@
 
 @section('content')
 
+@if(Auth::guard('user')->user()->banned_at)
+    <h1>YOU ARE BANNED, PLEASE CONTACT ADMIN</h1>
+    @endsection
+@else
 <table class="table table-bordered data-table" id="data-table">
     <thead>
         <tr>
@@ -71,6 +75,7 @@
 </div>
 
 @endsection
+@endif
 
 @section('script')
 <script>
@@ -132,6 +137,24 @@ $(function() {
         $('#name').val(data.data.name);
         $('#email').val(data.data.email);
         $('#national_id').val(data.data.national_id);
+        })
+    });
+
+    $('body').on('click', '.banReceptionist', function() {
+    const receptionistID = $(this).data('id');
+    $.get(`/receptionists/ban/${receptionistID}`, function(data) {
+            console.log(data);
+            location.reload();
+            alert("Banned successfully!");
+        })
+    });
+
+    $('body').on('click', '.unbanReceptionist', function() {
+    const receptionistID = $(this).data('id');
+    $.get(`/receptionists/unban/${receptionistID}`, function(data) {
+            console.log(data);
+            location.reload();
+            alert("Un-Banned successfully!");
         })
     });
                 

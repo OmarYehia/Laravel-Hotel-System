@@ -100,6 +100,8 @@ Route::delete('/managers/{managerID}', [ManagerAjaxController::class, 'destroy']
 // Receptionists Routes
 Route::get('/receptionists', [ReceptionistAjaxController::class, 'index'])->name('receptionists.index');
 Route::get('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'edit']);
+Route::get('/receptionists/ban/{receptionistID}', [ReceptionistAjaxController::class, 'ban']);
+Route::get('/receptionists/unban/{receptionistID}', [ReceptionistAjaxController::class, 'unBan']);
 Route::put('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'update']);
 Route::delete('/receptionists/{receptionistID}', [ReceptionistAjaxController::class, 'destroy']);
 

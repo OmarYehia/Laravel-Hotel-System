@@ -27,6 +27,13 @@ class ReceptionistAjaxController extends Controller
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Edit" class="edit btn btn-primary btn-sm editReceptionist actionBtn">Edit</a>';
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-danger btn-sm deleteReceptionist actionBtn">Delete</a>';
+                    if (Auth::guard("user")->user()->role=="manager") {
+                        if (!$row['banned_at']) {
+                            $btn = $btn.' <a href="receptionists/ban/'.$row['id'].'" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-secondary btn-sm banReceptionist actionBtn">Ban</a>';
+                        } else {
+                            $btn = $btn.' <a href="receptionists/unban/'.$row['id'].'" data-toggle="tooltip" created-by="'.$row['created_by']['id'].'"  data-id="'.$row['id'].'" data-original-title="Delete" class="btn btn-secondary btn-sm unbanReceptionist actionBtn">Un-Ban</a>';
+                        }
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -55,24 +62,35 @@ class ReceptionistAjaxController extends Controller
         $user = User::where('id', $userID)->delete();
     }
 
+    public function ban(User $receptionistID)
+    {
+        $receptionistID->ban();
+        return response()->json(['message' => 'User banned!']); 
+    }
+
+    public function unBan(User $receptionistID)
+    {
+        $receptionistID->unBan();
+        return response()->json(['message' => 'User Un-banned!']); 
+    }
     
-    public function getClientsReservations(Request $request,$user)
+    public function getClientsReservations(Request $request, $user)
     {
         if ($request->ajax()) {
-            $client = Client::where("approved_by",$user)->latest()->get();
-                $data = Reservation::where('client_id',$client[0]->id)->get();
-                $res = Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('client name', function ($row) {
-                        $user = Client::where("id",$row->id)->latest()->get();
-                        return $user[0]->name;
-                    })
-                    ->addColumn('client phone number', function ($row) {
-                        $user = Client::where("id",$row->id)->latest()->get();
-                        return $user[0]->phone_number;
-                    })
-                    ->make(true);
-                return $res;
+            $client = Client::where("approved_by", $user)->latest()->get();
+            $data = Reservation::where('client_id', $client[0]->id)->get();
+            $res = Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('client name', function ($row) {
+                    $user = Client::where("id", $row->id)->latest()->get();
+                    return $user[0]->name;
+                })
+                ->addColumn('client phone number', function ($row) {
+                    $user = Client::where("id", $row->id)->latest()->get();
+                    return $user[0]->phone_number;
+                })
+                ->make(true);
+            return $res;
         }
 
         return view('admin-views.clientsReservations');
