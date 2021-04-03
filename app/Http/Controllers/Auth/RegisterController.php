@@ -26,7 +26,6 @@ class RegisterController extends Controller
 
     public function store(StoreClientRequest $request)
     {
-        
         //store client
         $client = new Client;
         $client->name = $request->name;

@@ -27,10 +27,10 @@ class StoreClientRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:clients',
             'phone_number' => 'required',
-            'counrty' => 'required',
+            'country' => 'required',
             'gender' => 'required',
-            'password' => 'required|confirmed|min:6',
-            'avatar_image' =>  'image|mimes:jpeg,jpg|max:2048',
+            'password' => 'required|min:6',
+            'avatar_image' => 'image|mimes:jpeg,jpg|max:2048',
         ];
     }
 
