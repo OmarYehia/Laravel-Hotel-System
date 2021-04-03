@@ -34,7 +34,7 @@ Route::get('/', function () {
     } elseif (Auth::guard('user')->check()) {
         return route('admin.home');
     }
-})->name('index');
+})->name('index')->middleware('auth:client');
 
 Route::get('/home', function () {
     return view('client-views.home');

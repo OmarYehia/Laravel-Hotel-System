@@ -18,12 +18,6 @@
 @endsection
 
 @section('content')
-@if(Auth::guard('client')->user()->approval_status=="pending" || Auth::guard('client')->user()->approval_status=="denied")
-<div class="text-center">
-    <h1><b>Your Request is pending approval, Stay tuned</b></h1>
-</div>
-@endsection
-@else
 <div class="text-center">
     <h1><b>Welcome to Hotel Transylvania</b></h1>
 </div>
