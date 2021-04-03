@@ -1,4 +1,4 @@
-@extends('auth.layout.main')
+@extends('layout.main')
 
 @section('title', 'Hotel Transylvania | forgot password')
 
@@ -39,7 +39,7 @@
       </form>
 
       <p class="mt-3 mb-1">
-        <a href="{{ route ('login') }}">Login</a>
+        <a href="{{ route ('login.client') }}">Login</a>
       </p>
       <p class="mb-0">
         <a href="{{ route ('register') }}" class="text-center">Register a new membership</a>
@@ -49,4 +49,5 @@
   </div>
 </div>
 <!-- /.login-box -->
+@endsection
 

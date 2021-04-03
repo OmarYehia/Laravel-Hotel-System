@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 use App\Models\Client;
 use Auth\Redirect;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Laravel\Socialite\Facades\Socialite;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
-
-
+use Laravel\Socialite\Facades\Socialite;
 
 class GoogleClientController extends Controller
 {
@@ -44,12 +40,11 @@ class GoogleClientController extends Controller
             return $authClient;
         }
         
-
         return Client::create([
             'google_account' => $googleClient->email,
             "name" => $googleClient->name,
             "email" => $googleClient->email,
-           "country" => "usinggoogleaccount",
+            "country" => "usinggoogleaccount",
             "gender" => "male",
             "phone_number" => "usinggoogleaccount",
             "password" =>Hash::make("usinggoogleaccount"),

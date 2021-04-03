@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 
-<form action="" method="" class="row justify-content-center" id="form" enctype="multipart/form-data">
+<form action="" method="" class="row justify-content-center" id="form">
     @csrf
     @method('PUT')
     <div class="col-md-5">
